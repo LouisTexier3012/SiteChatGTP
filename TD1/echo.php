@@ -6,19 +6,44 @@
 </head>
 
 <body>
-Aujourd'hui on est :
+<p>
 <?php
-// Ceci est un commentaire PHP sur une ligne
-/* Ceci est le 2ème type de commentaire PHP
-sur plusieurs lignes */
+$voiture0 = [
+'marque' => "Renault",
+'couleur' => "bleu",
+'immatriculation' => "256AB34",
+'nbSieges' => 5
+];
 
-// On met la chaine de caractères "hello" dans la variable 'texte'
-// Les noms de variable commencent par $ en PHP
-$texte = date('d-m-y h:i:s');
+$voiture1 = [
+    'marque' => "Nissan",
+    'couleur' => "blanc",
+    'immatriculation' => "AB123CD",
+    'nbSieges' => 9
+];
 
+$voiture2 = [
+    'marque' => "Ford",
+    'couleur' => "mustang",
+    'immatriculation' => "EF456GH",
+    'nbSieges' => 2
+];
 
-// On écrit le contenu de la variable 'texte' dans la page Web
-echo $texte;
+$voitures = [];
+//$voitures[] = $voiture0;
+//$voitures[] = $voiture1;
+//$voitures[] = $voiture2;
+
+if (empty($voitures)) {
+    echo "Il n'y a pas de voiture";
+}
+else {
+    foreach ($voitures as $i => $car) {
+        echo "<p>Voiture {$voitures[$i]['immatriculation']} de marque {$voitures[$i]['marque']} (couleur {$voitures[$i]['couleur']}, {$voitures[$i]['nbSieges']} sieges)<p>";
+    }
+}
+
 ?>
+</p>
 </body>
 </html>
