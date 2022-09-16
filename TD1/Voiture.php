@@ -1,54 +1,45 @@
 <?php
 class Voiture {
 
-    private $marque;
-    private $couleur;
-    private $immatriculation;
-    private $nbSieges; // Nombre de places assises
+    private string $marque;
+    private string $couleur;
+    private string $immatriculation;
+    private int $nbSieges;
 
     // un getter
-    public function getMarque() {
+    public function getMarque() : string {
         return $this->marque;
     }
 
     // un setter
-    public function setMarque($marque) {
+    public function setMarque(string $marque) : void {
         $this->marque = $marque;
     }
 
-    public function getCouleur()
-    {
+    public function getCouleur() : string {
         return $this->couleur;
     }
 
-    public function getImmatriculation()
-    {
+    public function getImmatriculation() : string {
         return $this->immatriculation;
     }
 
-    public function setImmatriculation($immatriculation): void
-    {
+    public function setImmatriculation(string $immatriculation) : void {
         $this->immatriculation = substr($immatriculation, 0, 8);
     }
 
-    public function getNbSieges()
-    {
+    public function getNbSieges() : int {
         return $this->nbSieges;
     }
 
-    public function __construct(
-        $marque,
-        $couleur,
-        $immatriculation,
-        $nbSieges
-    ) {
+    public function __construct($marque, $couleur, $immatriculation, $nbSieges) {
         $this->marque = $marque;
         $this->couleur = $couleur;
         $this->immatriculation = substr($immatriculation, 0, 8);
         $this->nbSieges = $nbSieges;
     }
 
-    public function afficher() {
+    public function afficher() : void {
         echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
     }
 }
