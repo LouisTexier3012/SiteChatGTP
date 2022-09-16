@@ -32,7 +32,7 @@ class Voiture {
         return $this->nbSieges;
     }
 
-    public function __construct($marque, $couleur, $immatriculation, $nbSieges) {
+    public function __construct(string $marque, string $couleur, string $immatriculation, int $nbSieges) {
         $this->marque = $marque;
         $this->couleur = $couleur;
         $this->immatriculation = substr($immatriculation, 0, 8);
