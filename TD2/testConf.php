@@ -5,5 +5,5 @@
 require_once 'Conf.php';
 
 // On affiche le login de la base de donnees
-echo Conf::getLogin();
+echo Conf::getPassword();
 ?>

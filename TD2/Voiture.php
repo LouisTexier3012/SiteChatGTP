@@ -42,5 +42,27 @@ class Voiture {
     public function afficher() : void {
         echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
     }
+
+    public static function construire(array $voitureFormatTableau) : Voiture {
+
+        $marque = $voitureFormatTableau['marque'];
+        $couleur = $voitureFormatTableau['couleur'];
+        $immatriculation = $voitureFormatTableau['immatriculation'];
+        $nbSieges = $voitureFormatTableau['nbSieges'];
+
+        return new Voiture($marque, $couleur, $immatriculation, $nbSieges);
+    }
+
+    public static function getVoitures() {
+
+        $tableau = [];
+        $pdoStatement = Model::getPdo()->query("SELECT * FROM voiture");
+
+        foreach($pdoStatement as $voitureFormatTableau) {
+
+            $tableau[] = static::construire($voitureFormatTableau);
+        }
+        return $tableau;
+    }
 }
 ?>
