@@ -39,18 +39,18 @@ class Voiture {
         $this->nbSieges = $nbSieges;
     }
 
-    public function afficher() : void {
-        echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
-    }
+//    public function afficher() : void {
+//        echo "<p>ModelVoiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
+//    }
 
-    public static function construire(array $voitureFormatTableau) : Voiture {
+    public static function construire(array $voitureFormatTableau) : ModelVoiture {
 
         $marque = $voitureFormatTableau['marque'];
         $couleur = $voitureFormatTableau['couleur'];
         $immatriculation = $voitureFormatTableau['immatriculation'];
         $nbSieges = $voitureFormatTableau['nbSieges'];
 
-        return new Voiture($marque, $couleur, $immatriculation, $nbSieges);
+        return new ModelVoiture($marque, $couleur, $immatriculation, $nbSieges);
     }
 
     public static function getVoitures() : array {

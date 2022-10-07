@@ -1,5 +1,7 @@
 <?php
-class Voiture {
+require_once 'Model.php';
+
+class ModelVoiture {
 
     private string $marque;
     private string $couleur;
@@ -64,5 +66,37 @@ class Voiture {
         }
         return $voitures;
     }
+
+    public static function getVoitureParImmat(string $immatriculation) : mixed {
+
+        // Préparation de la requête
+        $pdoStatement = Model::getPdo()->prepare("SELECT * FROM voiture WHERE immatriculation = :immatriculationTag");
+
+        $values = array("immatriculationTag" => $immatriculation);
+        $pdoStatement->execute($values); // On donne les valeurs et on exécute la requête
+
+        // On récupère les résultats comme précédemment
+        // Note: fetch() renvoie false si pas de voiture correspondante
+        $voiture = $pdoStatement->fetch();
+        if ($voiture != false)
+            return static::construire($voiture);
+        else
+            return null;
+    }
+
+    public function sauvegarder() : void {
+
+        $pdoStatement = Model::getPdo()->prepare('INSERT INTO voiture (immatriculation, marque, couleur, nbSieges)
+                                                        VALUES (:immatriculation, :marque, :couleur, :nbSieges)');
+
+        $values = array("immatriculation" => $this->immatriculation,
+                        "marque" => $this->marque,
+                        "couleur" => $this->couleur,
+                        "nbSieges" => $this->nbSieges);
+
+        $pdoStatement->execute($values);
+    }
+
+
 }
 ?>

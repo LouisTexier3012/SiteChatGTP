@@ -39,7 +39,7 @@ if (empty($voitures)) {
 }
 else {
     foreach ($voitures as $i => $car) {
-        echo "<p>Voiture {$voitures[$i]['immatriculation']} de marque {$voitures[$i]['marque']} (couleur {$voitures[$i]['couleur']}, {$voitures[$i]['nbSieges']} sieges)<p>";
+        echo "<p>ModelVoiture {$voitures[$i]['immatriculation']} de marque {$voitures[$i]['marque']} (couleur {$voitures[$i]['couleur']}, {$voitures[$i]['nbSieges']} sieges)<p>";
     }
 }
 

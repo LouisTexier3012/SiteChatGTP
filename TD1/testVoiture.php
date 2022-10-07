@@ -6,9 +6,9 @@
 </head>
 <body>
 <?php
-require_once "Voiture.php";
+require_once "ModelVoiture.php";
 
-$voiture1 = new Voiture("Tesla", "blanc", "1234567890", 4);
+$voiture1 = new ModelVoiture("Tesla", "blanc", "1234567890", 4);
 $voiture1->afficher();
 ?>
 
