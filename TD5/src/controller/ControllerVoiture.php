@@ -1,5 +1,5 @@
 <?php
-require_once ('../model/ModelVoiture.php'); // chargement du modèle
+require_once __DIR__ . '../model/ModelVoiture.php'; // chargement du modèle
 
 class ControllerVoiture {
 
