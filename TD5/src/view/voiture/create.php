@@ -7,7 +7,7 @@
 
 <body>
 
-<form method="GET" action="../frontController.php">
+<form method="GET" action='frontController.php'>
     <fieldset>
         <legend>Mon formulaire :</legend>
         <p>

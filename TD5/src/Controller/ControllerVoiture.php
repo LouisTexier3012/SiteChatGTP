@@ -1,12 +1,15 @@
 <?php
-require_once __DIR__ . '../model/ModelVoiture.php'; // chargement du modèle
+//require_once __DIR__ . '/../model/ModelVoiture.php'; // chargement du modèle
+
+namespace App\Covoiturage\Controller;
+use App\Covoiturage\Model\ModelVoiture;
 
 class ControllerVoiture {
 
     private static function afficheVue(string $cheminVue, array $parametres = []) : void {
 
         extract($parametres); // Crée des variables à partir du tableau $parametres
-        require "../view/$cheminVue"; // Charge la vue
+        require __DIR__ . "/../view/$cheminVue"; // Charge la vue
     }
 
     //Déclaration de type de retour void : la fonction ne retourne pas de valeur

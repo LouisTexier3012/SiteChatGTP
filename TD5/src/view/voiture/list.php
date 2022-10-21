@@ -8,7 +8,13 @@
 <?php
 
 foreach ($voitures as $voiture) {
-    echo '<p> Voiture d\'immatriculation <a href=frontController.php?action=read&immatriculation=' . $voiture->getImmatriculation() . '>' . $voiture->getImmatriculation() .'</a>.</p>';
+    $immatriculationURL = rawurlencode($voiture->getImmatriculation());
+    $immatriculationHTML = htmlspecialchars($voiture->getImmatriculation());
+
+    echo '<p> Voiture d\'immatriculation <a href=frontController.php?action=read&immatriculation='
+        . $immatriculationURL
+        . '>'
+        . $immatriculationHTML .'</a>.</p>';
 }
 ?>
 </body>

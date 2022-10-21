@@ -1,5 +1,6 @@
 <?php
-require_once __DIR__ . 'Model.php';
+
+namespace App\Covoiturage\Model;
 
 class ModelVoiture {
 
