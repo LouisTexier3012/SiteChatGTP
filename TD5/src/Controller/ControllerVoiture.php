@@ -16,20 +16,25 @@ class ControllerVoiture {
     public static function readAll() : void {
 
         $voitures = ModelVoiture::getVoitures();    //appel au modèle pour gerer la BD
-        self::afficheVue('../view/voiture/list.php', ["voitures" => $voitures]);
+        self::afficheVue('../view/view.php', ["pagetitle" => "Liste des voitures",
+														"cheminVueBody" => "voiture/list.php",
+														"voitures" => $voitures]);
     }
 
     public static function read() : void {
 
         $voiture = ModelVoiture::getVoitureParImmat($_GET['immatriculation']);
 
-        if (!is_null($voiture)) self::afficheVue('../view/voiture/detail.php', ["voiture" => $voiture]);
+        if (!is_null($voiture)) self::afficheVue('../view/view.php', ["pagetitle" => "Détail de la voiture {$voiture->getImmatriculation()}",
+																				"cheminVueBody" => "voiture/detail.php",
+																				"voiture" => $voiture]);
         else self::afficheVue('../view/voiture/error.php');
     }
 
     public static function create() : void {
 
-        self::afficheVue('../view/voiture/create.php');
+        self::afficheVue('../view/view.php', ["pagetitle" => "Créer une voiture",
+														"cheminVueBody" => "voiture/create.php"]);
     }
 
     public static function created() : void {
