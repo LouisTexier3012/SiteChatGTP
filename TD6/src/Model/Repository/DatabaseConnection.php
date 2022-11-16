@@ -1,9 +1,9 @@
 <?php
-namespace App\Covoiturage\Model;
+namespace App\Covoiturage\Model\Repository;
 use App\Covoiturage\Config\Conf;
 use PDO;
 
-class Model
+class DatabaseConnection
 {
 
     private static ?DatabaseConnection $instance = null;

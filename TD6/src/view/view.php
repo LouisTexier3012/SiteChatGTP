@@ -8,7 +8,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title><?php echo $pagetitle?></title>
+        <title><?= $pagetitle?></title>
         <link rel="stylesheet" href="css/styles.css">
     </head>
     <body>
@@ -18,6 +18,7 @@
                 <li><a href="frontController.php?action=readAll"><p>Voitures</p></a></li>
                 <li><a href="frontController.php?action=readAll&controller=utilisateur"><p>Utilisateurs</p></a></li>
                 <li><a href="frontController.php?action=readAll&controller=trajet"><p>Trajets</p></a></li>
+                <li><a href="frontController.php?action=create"><p>Créer une voiture</p></a></li>
             </ul>
         </nav>
         </header>

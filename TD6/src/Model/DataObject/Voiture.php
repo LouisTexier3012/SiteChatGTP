@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Covoiturage\Model\DataObject;
+
 class Voiture {
 
     private string $marque;
@@ -41,28 +44,6 @@ class Voiture {
 
     public function afficher() : void {
         echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
-    }
-
-    public static function construire(array $voitureFormatTableau) : ModelVoiture {
-
-        $marque = $voitureFormatTableau['marque'];
-        $couleur = $voitureFormatTableau['couleur'];
-        $immatriculation = $voitureFormatTableau['immatriculation'];
-        $nbSieges = $voitureFormatTableau['nbSieges'];
-
-        return new ModelVoiture($marque, $couleur, $immatriculation, $nbSieges);
-    }
-
-    public static function getVoitures() : array {
-
-        $voitures = [];
-        $pdoStatement = Model::getPdo()->query("SELECT * FROM voiture");
-
-        foreach($pdoStatement as $voiture) {
-
-            $voitures[] = static::construire($voiture);
-        }
-        return $voitures;
     }
 }
 ?>

@@ -1,8 +1,8 @@
 <?php
-//require_once __DIR__ . '/../model/ModelVoiture.php'; // chargement du modèle
+//require_once __DIR__ . '/../model/Voiture.php'; // chargement du modèle
 
 namespace App\Covoiturage\Controller;
-use App\Covoiturage\Model\ModelVoiture;
+use App\Covoiturage\Model\Voiture;
 
 class ControllerVoiture {
 
@@ -15,7 +15,7 @@ class ControllerVoiture {
     //Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
 
-        $voitures = ModelVoiture::getVoitures();    //appel au modèle pour gerer la BD
+        $voitures = Voiture::getVoitures();    //appel au modèle pour gerer la BD
         self::afficheVue('../view/view.php', ["pagetitle" => "Liste des voitures",
 														"cheminVueBody" => "voiture/list.php",
 														"voitures" => $voitures]);
@@ -23,7 +23,7 @@ class ControllerVoiture {
 
     public static function read() : void {
 
-        $voiture = ModelVoiture::getVoitureParImmat($_GET['immatriculation']);
+        $voiture = Voiture::getVoitureParImmat($_GET['immatriculation']);
 
         if (!is_null($voiture)) self::afficheVue('../view/view.php', ["pagetitle" => "Détail de la voiture {$voiture->getImmatriculation()}",
 																				"cheminVueBody" => "voiture/detail.php",
@@ -39,13 +39,15 @@ class ControllerVoiture {
 
     public static function created() : void {
 
-        $voiture = new ModelVoiture($_GET['marque'],
+        $voiture = new Voiture($_GET['marque'],
                                     $_GET['couleur'],
                                     $_GET['immatriculation'],
                                     $_GET['nbSieges']
         );
         $voiture->sauvegarder();
-        self::readAll();
+        self::afficheVue('../view/view.php', ["pagetitle" => "Confirmation de création",
+                                                                "cheminVueBody" => "voiture/created.php",
+                                                                "voiture" => $voiture]);
     }
 }
 ?>

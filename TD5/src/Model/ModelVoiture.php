@@ -46,20 +46,20 @@ class ModelVoiture {
         echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
     }
 
-    public static function construire(array $voitureFormatTableau) : ModelVoiture {
+    public static function construire(array $voitureFormatTableau) : Voiture {
 
         $marque = $voitureFormatTableau['marque'];
         $couleur = $voitureFormatTableau['couleur'];
         $immatriculation = $voitureFormatTableau['immatriculation'];
         $nbSieges = $voitureFormatTableau['nbSieges'];
 
-        return new ModelVoiture($marque, $couleur, $immatriculation, $nbSieges);
+        return new Voiture($marque, $couleur, $immatriculation, $nbSieges);
     }
 
     public static function getVoitures() : array {
 
         $voitures = [];
-        $pdoStatement = Model::getPdo()->query("SELECT * FROM voiture");
+        $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM voiture");
 
         foreach($pdoStatement as $voiture) {
 
@@ -68,10 +68,10 @@ class ModelVoiture {
         return $voitures;
     }
 
-    public static function getVoitureParImmat(string $immatriculation) : mixed {
+    public static function getVoitureParImmat(string $immatriculation) : ?Voiture {
 
         // Préparation de la requête
-        $pdoStatement = Model::getPdo()->prepare("SELECT * FROM voiture WHERE immatriculation = :immatriculationTag");
+        $pdoStatement = DatabaseConnection::getPdo()->prepare("SELECT * FROM voiture WHERE immatriculation = :immatriculationTag");
 
         $values = array("immatriculationTag" => $immatriculation);
         $pdoStatement->execute($values); // On donne les valeurs et on exécute la requête
@@ -87,7 +87,7 @@ class ModelVoiture {
 
     public function sauvegarder() : void {
 
-        $pdoStatement = Model::getPdo()->prepare('INSERT INTO voiture (immatriculation, marque, couleur, nbSieges)
+        $pdoStatement = DatabaseConnection::getPdo()->prepare('INSERT INTO voiture (immatriculation, marque, couleur, nbSieges)
                                                         VALUES (:immatriculation, :marque, :couleur, :nbSieges)');
 
         $values = array("immatriculation" => $this->immatriculation,

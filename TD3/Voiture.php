@@ -40,7 +40,7 @@ class Voiture {
     }
 
 //    public function afficher() : void {
-//        echo "<p>ModelVoiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
+//        echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
 //    }
 
     public static function construire(array $voitureFormatTableau) : ModelVoiture {
