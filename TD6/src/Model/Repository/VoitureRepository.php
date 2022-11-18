@@ -2,24 +2,11 @@
 
 namespace App\Covoiturage\Model\Repository;
 
-use App\Covoiturage\Model\Repository\DatabaseConnection;
 use App\Covoiturage\Model\DataObject\Voiture;
 
-class VoitureRepository {
+class VoitureRepository extends AbstractRepository {
 
-    public static function getVoitures() : array {
-
-        $voitures = [];
-        $pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM voiture");
-
-        foreach($pdoStatement as $voiture) {
-
-            $voitures[] = static::construire($voiture);
-        }
-        return $voitures;
-    }
-
-    public static function getVoitureParImmat(string $immatriculation) : ?Voiture {
+	public static function getVoitureParImmat(string $immatriculation) : ?Voiture {
 
         // Préparation de la requête
         $pdoStatement = DatabaseConnection::getPdo()->prepare("SELECT * FROM voiture WHERE immatriculation = :immatriculationTag");
@@ -49,7 +36,7 @@ class VoitureRepository {
         $pdoStatement->execute($values);
     }
 
-    public static function construire(array $voitureFormatTableau = []) : Voiture {
+    public function construire(array $voitureFormatTableau = []) : Voiture {
 
         $marque = $voitureFormatTableau['marque'];
         $couleur = $voitureFormatTableau['couleur'];
@@ -79,4 +66,9 @@ class VoitureRepository {
 
         $pdoStatement->execute($values);
     }
+
+	protected function getNomTable(): string {
+
+		return 'voiture';
+	}
 }

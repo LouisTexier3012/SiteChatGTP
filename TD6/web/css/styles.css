@@ -28,7 +28,8 @@ nav ul li a {
 }
 
 body {
-    width: 600px;
+    width: 1600px;
+    align-content: center;
 }
 
 main {

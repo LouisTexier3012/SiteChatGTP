@@ -2,7 +2,7 @@
 
 namespace App\Covoiturage\Model\DataObject;
 
-class Voiture {
+class Voiture extends AbstractDataObject {
 
     private string $marque;
     private string $couleur;

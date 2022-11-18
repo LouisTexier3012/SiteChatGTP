@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Covoiturage\Controller;
 use App\Covoiturage\Model\DataObject\Voiture;
 use App\Covoiturage\Model\Repository\VoitureRepository;
@@ -15,7 +14,7 @@ class ControllerVoiture {
     //Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
 
-        $voitures = VoitureRepository::getVoitures();    //appel au modèle pour gerer la BD
+        $voitures = (new VoitureRepository)->selectAll();    //appel au modèle pour gerer la BD
         self::afficheVue('../view/view.php', ["pagetitle" => "Liste des voitures",
 														"cheminVueBody" => "voiture/list.php",
 														"voitures" => $voitures]);
@@ -74,12 +73,6 @@ class ControllerVoiture {
 
     public static function updated() : void {
 
-        /*
-        VoitureRepository::mettreAJour(VoitureRepository::construire(["immatriculation" => $_GET['immatriculation'],
-                                                                      "marque" => $_GET['marque'],
-                                                                      "couleur" => $_GET['couleur'],
-                                                                      "nbSieges" => $_GET['nbSieges']]));
-        */
         VoitureRepository::mettreAJour(new Voiture($_GET['marque'],
                                                    $_GET['couleur'],
                                                    $_GET['immatriculation'],
@@ -90,4 +83,3 @@ class ControllerVoiture {
                                                         "immatriculation" => $_GET['immatriculation']]);
     }
 }
-?>
