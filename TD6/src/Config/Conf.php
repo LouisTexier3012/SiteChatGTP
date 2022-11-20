@@ -9,13 +9,13 @@ class Conf {
         //
         // ou webinfo.iutmontp.univ-montp2.fr
         // pour accéder à webinfo depuis l'extérieur
-        'hostname' => 'webinfo',
+        'hostname' => 'localhost',
         // A l'IUT, vous avez une BDD nommee comme votre login
         // Sur votre machine, vous devrez creer une BDD
         'database' => 'riosq',
         // A l'IUT, c'est votre login
         // Sur votre machine, vous avez surement un compte 'root'
-        'login' => 'riosq',
+        'login' => 'root',
         // A l'IUT, c'est votre mdp (INE par defaut)
         // Sur votre machine personelle, vous avez creez ce mdp a l'installation
         'password' => 'saucisse'
@@ -50,10 +50,3 @@ class Conf {
         return static::$databases['password'];
     }
 }
-
-//  Conf::getDatabase();
-//  $c = new Conf();
-//  $c->getDatabase();
-
-?>
-

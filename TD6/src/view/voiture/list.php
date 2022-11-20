@@ -1,6 +1,6 @@
 <?php
 
-/* @var ModelVoiture[] $voitures*/
+/* @var Utilisateur[] $voitures*/
 foreach ($voitures as $voiture) {
     $immatriculationURL = rawurlencode($voiture->getImmatriculation());
     $immatriculationHTML = htmlspecialchars($voiture->getImmatriculation());
@@ -8,12 +8,14 @@ foreach ($voitures as $voiture) {
 
     echo '<div class="list">
             <p>
-                Voiture ' . $marqueHTML . ' d\'immatriculation <a href="frontController.php?action=read&immatriculation=' . $immatriculationURL . '">' . $immatriculationHTML .'</a>
+                Voiture ' . $marqueHTML . ' d\'immatriculation <a href="frontController.php?controller=voiture&action=read&immatriculation=' . $immatriculationURL . '">' . $immatriculationHTML .'</a>
             </p>
             <div>
-                <a href="frontController.php?action=update&immatriculation=' . $immatriculationURL . '"><img src="svg/pen.svg" alt="pen"/></a>
-                <a href="frontController.php?action=delete&immatriculation=' . $immatriculationURL . '"><img src="svg/cross.svg" alt="cross"/></a>
+                <a href="frontController.php?controller=voiture&action=update&&immatriculation=' . $immatriculationURL . '"><img src="svg/pen.svg" alt="pen"/></a>
+                <a href="frontController.php?controller=voiture&action=delete&immatriculation=' . $immatriculationURL . '"><img src="svg/cross.svg" alt="cross"/></a>
             </div>
         </div>';
 }
-?>
+echo   '<div class="list">
+            <a href="frontController.php?controller=voiture&action=create"><img src="svg/add.svg" alt="add"/></a>
+        </div>';

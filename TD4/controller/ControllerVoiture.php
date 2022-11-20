@@ -12,13 +12,13 @@ class ControllerVoiture {
     //Déclaration de type de retour void : la fonction ne retourne pas de valeur
     public static function readAll() : void {
 
-        $voitures = ModelVoiture::getVoitures();    //appel au modèle pour gerer la BD
+        $voitures = Utilisateur::getVoitures();    //appel au modèle pour gerer la BD
         self::afficheVue('../view/voiture/list.php', ["voitures" => $voitures]);
     }
 
     public static function read() : void {
 
-        $voiture = ModelVoiture::getVoitureParImmat($_GET['immatriculation']);
+        $voiture = Utilisateur::getVoitureParImmat($_GET['immatriculation']);
 
         if (!is_null($voiture)) self::afficheVue('../view/voiture/detail.php', ["voiture" => $voiture]);
         else self::afficheVue('../view/voiture/error.php');
@@ -31,7 +31,7 @@ class ControllerVoiture {
 
     public static function created() : void {
 
-        $voiture = new ModelVoiture($_GET['marque'],
+        $voiture = new Utilisateur($_GET['marque'],
                                     $_GET['couleur'],
                                     $_GET['immatriculation'],
                                     $_GET['nbSieges']

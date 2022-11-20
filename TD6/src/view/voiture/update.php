@@ -22,6 +22,7 @@ use App\Covoiturage\Model\DataObject\Voiture;
             <input type="number" placeholder="0-8" name="nbSieges" id="seats" value="<?= htmlspecialchars($voiture->getNbSieges())?>" required/>
 
             <input type='hidden' name='action' value='updated'>
+            <input type='hidden' name='controller' value='voiture'>
         </p>
         <p>
             <input type="submit" value="Envoyer"/>

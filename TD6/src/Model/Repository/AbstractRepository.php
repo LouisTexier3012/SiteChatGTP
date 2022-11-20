@@ -4,38 +4,88 @@ namespace App\Covoiturage\Model\Repository;
 
 use App\Covoiturage\Model\DataObject\AbstractDataObject;
 
-abstract class AbstractRepository {
+abstract class AbstractRepository
+{
 
-	/**
-	 * @return AbstractDataObject[]
-	 */
-	public function selectAll(): array {
+    /**
+     * @return AbstractDataObject[]
+     */
+    public function selectAll(): array
+    {
+        $objects = [];
+        $pdoStatement = DatabaseConnection::getPdo()->query('SELECT * FROM ' . $this->getNomTable());
 
-		$objects = [];
-		$pdoStatement = DatabaseConnection::getPdo()->query('SELECT * FROM $getNomTable()');
+        foreach ($pdoStatement as $object)
+        {
+            $objects[] = $this->construire($object);
+        }
+        return $objects;
+    }
 
-		foreach ($pdoStatement as $object) {
+    public function select($valeurClePrimaire): ?AbstractDataObject
+    {
+        $pdoStatement = DatabaseConnection::getPdo()->prepare('SELECT * FROM ' . $this->getNomTable() .
+                                                                    ' WHERE ' . $this->getNomClePrimaire() . ' = :' . $this->getNomClePrimaire());
 
-			$objects[] = $this->construire($object);
-		}
-		return $objects;
-	}
+        $values = array($this->getNomClePrimaire() => $valeurClePrimaire);
+        $pdoStatement->execute($values);
+        $voiture = $pdoStatement->fetch(); //fetch() renvoie false si pas de voiture correspondante
 
-	public function select($valeurClePrimaire) : ?AbstractDataObject {
+        if ($voiture != false) return static::construire($voiture);
+        else                   return null;
+    }
 
-		$pdoStatement = DatabaseConnection::getPdo()->prepare('SELECT * FROM $getNomTable WHERE immatriculation = :immatriculation');
+    public function create(AbstractDataObject $object)
+    {
+        $firstColumnSet = false;
 
-		$values = array("immatriculation" => $valeurClePrimaire);
-		$pdoStatement->execute($values);
-		$voiture = $pdoStatement->fetch(); //fetch() renvoie false si pas de voiture correspondante
+        $sql = 'INSERT INTO ' . $this->getNomTable() . ' VALUES (';
+        foreach ($this->getNomsColonnes() as $column) {
 
-		if ($voiture != false) return static::construire($voiture);
-		else				   return null;
-	}
+            if (!$firstColumnSet) {
 
-	protected abstract function getNomTable() : String;
+                $sql .= ':' . $column;
+                $firstColumnSet = true;
+            } else $sql .= ', :' . $column;
+        }
+        $sql .= ')';
 
-	protected abstract function getNomClePrimaire(): string;
+        $pdo = DatabaseConnection::getPdo()->prepare($sql);
+        $pdo->execute($object->formatTableau());
+    }
 
-	protected abstract function construire(array $objetFormatTableau) : AbstractDataObject;
+    public function update(AbstractDataObject $object): void
+    {
+        $firstColumnSet = false;
+
+        $sql = 'UPDATE ' . $this->getNomTable() . ' SET ';
+        foreach ($this->getNomsColonnes() as $column)
+        {
+            if (!$firstColumnSet)
+            {
+                $sql .= $column . ' = :' . $column;
+                $firstColumnSet = true;
+            }
+            else $sql .= ', ' . $column . ' = :' . $column;
+        }
+        $sql .= ' WHERE ' . $this->getNomClePrimaire() . ' = :' . $this->getNomClePrimaire();
+
+        $pdo = DatabaseConnection::getPdo()->prepare($sql);
+        $pdo->execute($object->formatTableau());
+    }
+
+    public function delete($valeurClePrimaire): void
+    {
+        $pdoStatement = DatabaseConnection::getPdo()->prepare('DELETE FROM ' . $this->getNomTable() .
+                                                                    ' WHERE ' . $this->getNomClePrimaire() . '=:valeurClePrimaire');
+        $pdoStatement->execute(array("valeurClePrimaire" => $valeurClePrimaire));
+    }
+
+    protected abstract function getNomTable(): string;
+
+    protected abstract function getNomClePrimaire(): string;
+
+    protected abstract function getNomsColonnes(): array;
+
+    protected abstract function construire(array $utilisateurFormatTableau): AbstractDataObject;
 }

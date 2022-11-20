@@ -18,7 +18,7 @@ class VoitureRepository extends AbstractRepository {
         // Note: fetch() renvoie false si pas de voiture correspondante
         $voiture = $pdoStatement->fetch();
         if ($voiture != false)
-            return static::construire($voiture);
+            return (new VoitureRepository)->construire($voiture);
         else
             return null;
     }
@@ -46,11 +46,11 @@ class VoitureRepository extends AbstractRepository {
         return new Voiture($marque, $couleur, $immatriculation, $nbSieges);
     }
 
-    public static function supprimerParImmatriculation(String $immatriculation) : void {
-
-        $pdoStatement = DatabaseConnection::getPdo()->prepare('DELETE FROM voiture WHERE immatriculation=:immatriculation');
-        $pdoStatement->execute(array("immatriculation" => $immatriculation));
-    }
+//    public static function supprimerParImmatriculation(String $immatriculation) : void {
+//
+//        $pdoStatement = DatabaseConnection::getPdo()->prepare('DELETE FROM voiture WHERE immatriculation=:immatriculation');
+//        $pdoStatement->execute(array("immatriculation" => $immatriculation));
+//    }
 
     public static function mettreAJour(Voiture $voiture) {
 
@@ -71,4 +71,14 @@ class VoitureRepository extends AbstractRepository {
 
 		return 'voiture';
 	}
+
+    protected function getNomClePrimaire(): string
+    {
+        return 'immatriculation';
+    }
+
+    protected function getNomsColonnes(): array
+    {
+        return ['immatriculation', 'marque', 'couleur', 'nbSieges'];
+    }
 }

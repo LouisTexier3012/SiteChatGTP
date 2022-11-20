@@ -45,5 +45,13 @@ class Voiture extends AbstractDataObject {
     public function afficher() : void {
         echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
     }
+
+    public function formatTableau(): array
+    {
+        return array("immatriculation" => $this->immatriculation,
+                     "marque" => $this->marque,
+                     "couleur" => $this->couleur,
+                     "nbSieges" => $this->nbSieges);
+    }
 }
 ?>

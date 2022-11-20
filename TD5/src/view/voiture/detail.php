@@ -1,5 +1,5 @@
 <?php
-/** @var ModelVoiture $voiture */
+/** @var Utilisateur $voiture */
 if (!is_null($voiture)) {
 
     $immatriculationHTML = htmlspecialchars($voiture->getImmatriculation());

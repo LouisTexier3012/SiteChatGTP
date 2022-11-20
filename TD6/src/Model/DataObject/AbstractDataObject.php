@@ -2,7 +2,8 @@
 
 namespace App\Covoiturage\Model\DataObject;
 
-class AbstractDataObject
+abstract class AbstractDataObject
 {
 
+    public abstract function formatTableau(): array;
 }

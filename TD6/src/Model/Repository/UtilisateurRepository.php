@@ -1,29 +1,32 @@
 <?php
 
 namespace App\Covoiturage\Model\Repository;
-use App\Covoiturage\Model\DataObject\AbstractDataObject;
+
 use App\Covoiturage\Model\DataObject\Utilisateur;
 
-class UtilisateurRepository extends AbstractRepository {
+class UtilisateurRepository extends AbstractRepository
+{
+    protected function getNomTable(): string
+    {
+        return 'utilisateur';
+    }
 
-//	public static function getUtilisateurs() : array {
-//
-//		$utilisateurs = [];
-//		$pdoStatement = DatabaseConnection::getPdo()->query("SELECT * FROM utilisateur");
-//
-//		foreach ($pdoStatement as $utilisateur) {
-//
-//			$utilisateurs[] = new Utilisateur($utilisateur['login'], $utilisateur['nom'], $utilisateur['prenom']);
-//		}
-//		return $utilisateurs;
-//	}
+    protected function getNomClePrimaire(): string
+    {
+        return 'login';
+    }
 
-	protected function getNomTable(): string {
-		return 'utilisateur';
-	}
+    protected function construire(array $utilisateurFormatTableau): Utilisateur
+    {
+        $login = $utilisateurFormatTableau['login'];
+        $nom = $utilisateurFormatTableau['nom'];
+        $prenom = $utilisateurFormatTableau['prenom'];
 
-	protected function construire(array $objetFormatTableau): AbstractDataObject
-	{
-		// TODO: Implement construire() method.
-	}
+        return new Utilisateur($login, $nom, $prenom);
+    }
+
+    protected function getNomsColonnes(): array
+    {
+        return ['login', 'prenom', 'nom'];
+    }
 }

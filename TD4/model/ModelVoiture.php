@@ -1,7 +1,7 @@
 <?php
 require_once 'Model.php';
 
-class ModelVoiture {
+class Utilisateur {
 
     private string $marque;
     private string $couleur;
@@ -45,14 +45,14 @@ class ModelVoiture {
 //        echo "<p>Voiture $this->immatriculation de marque $this->marque (couleur $this->couleur, $this->nbSieges sieges)<p>";
 //    }
 
-    public static function construire(array $voitureFormatTableau) : ModelVoiture {
+    public static function construire(array $voitureFormatTableau) : Utilisateur {
 
         $marque = $voitureFormatTableau['marque'];
         $couleur = $voitureFormatTableau['couleur'];
         $immatriculation = $voitureFormatTableau['immatriculation'];
         $nbSieges = $voitureFormatTableau['nbSieges'];
 
-        return new ModelVoiture($marque, $couleur, $immatriculation, $nbSieges);
+        return new Utilisateur($marque, $couleur, $immatriculation, $nbSieges);
     }
 
     public static function getVoitures() : array {

@@ -1,7 +1,7 @@
 <body>
     <form method="GET" action='frontController.php'>
         <fieldset>
-            <legend>Mon formulaire :</legend>
+            <legend>Créer une voiture:</legend>
             <p>
                 <label for="immat_id">Immatriculation</label> :
                 <input type="text" placeholder="123AB45" name="immatriculation" id="immat_id" required/>
@@ -16,6 +16,7 @@
                 <input type="number" placeholder="0-8" name="nbSieges" id="seats" required/>
 
                 <input type='hidden' name='action' value='created'>
+                <input type='hidden' name='controller' value='voiture'>
             </p>
             <p>
                 <input type="submit" value="Envoyer" />

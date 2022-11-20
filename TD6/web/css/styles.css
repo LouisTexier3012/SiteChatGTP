@@ -2,8 +2,8 @@ nav ul {
     list-style: none;
     padding-left: 0;
     text-align: center;
-    display:flex;
-    justify-content:center;
+    display: flex;
+    justify-content: center;
 }
 
 nav ul li {
@@ -28,8 +28,8 @@ nav ul li a {
 }
 
 body {
-    width: 1600px;
-    align-content: center;
+    width: 600px;
+    justify-content: center;
 }
 
 main {
@@ -40,8 +40,11 @@ main {
 .list {
     padding-left: 16px;
     padding-right: 16px;
+
+    height: 32px;
+
     border-bottom-style: solid;
-    border-width: 1px   ;
+    border-width: 1px;
     border-color: black;
 
     display: flex;
@@ -51,7 +54,7 @@ main {
 
 footer p {
     border: 1px solid black;
-    text-align:right;
+    text-align: right;
     /* width:600px; */
-    padding-right:1em;
+    padding-right: 1em;
 }

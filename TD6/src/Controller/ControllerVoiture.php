@@ -1,6 +1,7 @@
 <?php
 namespace App\Covoiturage\Controller;
 use App\Covoiturage\Model\DataObject\Voiture;
+use App\Covoiturage\Model\Repository\AbstractRepository;
 use App\Covoiturage\Model\Repository\VoitureRepository;
 
 class ControllerVoiture {
@@ -22,7 +23,7 @@ class ControllerVoiture {
 
     public static function read() : void {
 
-        $voiture = VoitureRepository::getVoitureParImmat($_GET['immatriculation']);
+        $voiture = (new VoitureRepository)->select($_GET['immatriculation']);
 
         if (!is_null($voiture)) self::afficheVue('../view/view.php', ["pagetitle" => "Détail de la voiture {$voiture->getImmatriculation()}",
 																				"cheminVueBody" => "voiture/detail.php",
@@ -43,7 +44,7 @@ class ControllerVoiture {
                                $_GET['immatriculation'],
                                $_GET['nbSieges']);
         VoitureRepository::sauvegarder($voiture);
-        self::afficheVue('../view/view.php', ["pagetitle" => "Confirmation de création",
+        self::afficheVue('../view/view.php', ["pagetitle" => "Voiture créée",
                                                                 "cheminVueBody" => "voiture/created.php",
                                                                 "voiture" => $voiture]);
     }
@@ -57,9 +58,9 @@ class ControllerVoiture {
 
     public static function delete() : void {
 
-        VoitureRepository::supprimerParImmatriculation($_GET['immatriculation']);
+        (new VoitureRepository)->delete($_GET['immatriculation']);
 
-        self::afficheVue('../view/view.php', ["pagetitle" => "Confirmation de suppression",
+        self::afficheVue('../view/view.php', ["pagetitle" => "Voiture supprimée",
                                                         "cheminVueBody" => "voiture/deleted.php",
                                                         "immatriculation" => $_GET['immatriculation']]);
     }
@@ -68,17 +69,17 @@ class ControllerVoiture {
 
         self::afficheVue('../view/view.php', ["pagetitle" => "Modification de voiture",
                                                         "cheminVueBody" => "voiture/update.php",
-                                                        "voiture" => VoitureRepository::getVoitureParImmat($_GET['immatriculation'])]);
+                                                        "voiture" => (new VoitureRepository())->select($_GET['immatriculation'])]);
     }
 
     public static function updated() : void {
 
-        VoitureRepository::mettreAJour(new Voiture($_GET['marque'],
-                                                   $_GET['couleur'],
-                                                   $_GET['immatriculation'],
-                                                   $_GET['nbSieges']));
+        (new VoitureRepository())->update(new Voiture($_GET['marque'],
+                                                      $_GET['couleur'],
+                                                      $_GET['immatriculation'],
+                                                      $_GET['nbSieges']));
 
-        self::afficheVue('../view/view.php', ["pagetitle" => "Confirmation de modification",
+        self::afficheVue('../view/view.php', ["pagetitle" => "Voiture modifiée",
                                                         "cheminVueBody" => "voiture/updated.php",
                                                         "immatriculation" => $_GET['immatriculation']]);
     }

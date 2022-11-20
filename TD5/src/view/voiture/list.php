@@ -7,7 +7,7 @@
 <body>
 <?php
 
-/* @var ModelVoiture[] $voitures*/
+/* @var Utilisateur[] $voitures*/
 foreach ($voitures as $voiture) {
     $immatriculationURL = rawurlencode($voiture->getImmatriculation());
     $immatriculationHTML = htmlspecialchars($voiture->getImmatriculation());

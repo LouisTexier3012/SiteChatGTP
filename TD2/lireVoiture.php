@@ -5,7 +5,7 @@ require_once 'Voiture.php';
 require_once 'Trajet.php';
 require_once 'Utilisateur.php';
 
-foreach (ModelVoiture::getVoitures() as $voiture) {
+foreach (Utilisateur::getVoitures() as $voiture) {
 
     $voiture->afficher();
 }
