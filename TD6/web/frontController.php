@@ -1,4 +1,5 @@
 <?php
+
 use App\Covoiturage\Controller\ControllerVoiture;
 
 require_once __DIR__ . '/../src/Lib/Psr4AutoloaderClass.php';
@@ -15,8 +16,8 @@ else							$controllerClassName = "App\Covoiturage\Controller\ControllerVoiture"
 
 if (class_exists($controllerClassName)) {
 
-	if (in_array($action, get_class_methods($controllerClassName))) $controllerClassName::$action();
-	else                                    ControllerVoiture::error("Cette action n'existe pas pour ce controlleur");
+	if (in_array($action, get_class_methods($controllerClassName))) (new $controllerClassName())->$action();
+	else (new $controllerClassName())->error("Cette action n'existe pas pour ce controlleur");
 }
-else ControllerVoiture::error("Ce controlleur n'existe pas");
+else (new ControllerVoiture())->error("Ce controlleur n'existe pas");
 ?>

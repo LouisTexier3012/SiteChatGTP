@@ -6,10 +6,18 @@ use App\Covoiturage\Model\DataObject\AbstractDataObject;
 
 abstract class AbstractRepository
 {
-
-    /**
-     * @return AbstractDataObject[]
-     */
+	public abstract function getNomTable() : string;
+	
+	public abstract function getNomClePrimaire() : string;
+	
+	public abstract function getNomsColonnes() : array;
+	
+	protected abstract function construire(array $utilisateurFormatTableau) : AbstractDataObject;
+	
+	public abstract function isFirstLetterVowel() : bool;
+	
+	public abstract function isFeminine() : bool;
+	
     public function selectAll(): array
     {
         $objects = [];
@@ -80,12 +88,4 @@ abstract class AbstractRepository
                                                                     ' WHERE ' . $this->getNomClePrimaire() . '=:valeurClePrimaire');
         $pdoStatement->execute(array("valeurClePrimaire" => $valeurClePrimaire));
     }
-
-    public abstract function getNomTable(): string;
-
-    public abstract function getNomClePrimaire(): string;
-
-    protected abstract function getNomsColonnes(): array;
-
-    protected abstract function construire(array $utilisateurFormatTableau): AbstractDataObject;
 }

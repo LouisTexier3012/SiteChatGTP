@@ -12,17 +12,17 @@ class TrajetRepository extends AbstractRepository
         return 'trajet';
     }
 
-    protected function getNomClePrimaire(): string
+    public function getNomClePrimaire(): string
     {
         return 'id';
     }
 
-    protected function getNomsColonnes(): array
+    public function getNomsColonnes(): array
     {
         return ['id', 'depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
     }
-
-    protected function construire(array $utilisateurFormatTableau): AbstractDataObject
+	
+	public function construire(array $utilisateurFormatTableau): AbstractDataObject
     {
         $id = $utilisateurFormatTableau['id'];
         $depart = $utilisateurFormatTableau['depart'];
@@ -34,4 +34,14 @@ class TrajetRepository extends AbstractRepository
 
         return new Trajet($id, $depart, $arrivee, $date, $nbPlaces, $prix, $conducteurLogin);
     }
+	
+	public function isFirstLetterVowel(): bool
+	{
+		return false;
+	}
+	
+	public function isFeminine(): bool
+	{
+		return false;
+	}
 }

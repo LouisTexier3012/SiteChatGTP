@@ -6,17 +6,17 @@ use App\Covoiturage\Model\DataObject\Utilisateur;
 
 class UtilisateurRepository extends AbstractRepository
 {
-    public function getNomTable(): string
+    public function getNomTable() : string
     {
         return 'utilisateur';
     }
-
-    protected function getNomClePrimaire(): string
+	
+	public function getNomClePrimaire() : string
     {
         return 'login';
     }
-
-    protected function construire(array $utilisateurFormatTableau): Utilisateur
+	
+	public function construire(array $utilisateurFormatTableau) : Utilisateur
     {
         $login = $utilisateurFormatTableau['login'];
         $nom = $utilisateurFormatTableau['nom'];
@@ -24,9 +24,19 @@ class UtilisateurRepository extends AbstractRepository
 
         return new Utilisateur($login, $nom, $prenom);
     }
-
-    protected function getNomsColonnes(): array
+	
+	public function getNomsColonnes() : array
     {
         return ['login', 'prenom', 'nom'];
     }
+	
+	public function isFirstLetterVowel() : bool
+	{
+		return true;
+	}
+	
+	public function isFeminine(): bool
+	{
+		return false;
+	}
 }
