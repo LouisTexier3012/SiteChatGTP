@@ -67,7 +67,7 @@ class VoitureRepository extends AbstractRepository {
         $pdoStatement->execute($values);
     }
 
-	protected function getNomTable(): string {
+	public function getNomTable(): string {
 
 		return 'voiture';
 	}

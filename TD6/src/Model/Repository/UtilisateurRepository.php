@@ -6,7 +6,7 @@ use App\Covoiturage\Model\DataObject\Utilisateur;
 
 class UtilisateurRepository extends AbstractRepository
 {
-    protected function getNomTable(): string
+    public function getNomTable(): string
     {
         return 'utilisateur';
     }

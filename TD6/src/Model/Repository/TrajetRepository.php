@@ -7,7 +7,7 @@ use App\Covoiturage\Model\DataObject\Trajet;
 
 class TrajetRepository extends AbstractRepository
 {
-    protected function getNomTable(): string
+    public function getNomTable(): string
     {
         return 'trajet';
     }

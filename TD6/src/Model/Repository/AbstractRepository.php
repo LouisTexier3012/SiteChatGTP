@@ -81,9 +81,9 @@ abstract class AbstractRepository
         $pdoStatement->execute(array("valeurClePrimaire" => $valeurClePrimaire));
     }
 
-    protected abstract function getNomTable(): string;
+    public abstract function getNomTable(): string;
 
-    protected abstract function getNomClePrimaire(): string;
+    public abstract function getNomClePrimaire(): string;
 
     protected abstract function getNomsColonnes(): array;
 
