@@ -114,11 +114,12 @@ abstract class AbstractController
 
     protected function delete() : void
     {
-        $objectName = $this->getRepository()->getNomTable();
-        $primaryKey = $this->getRepository()->getNomClePrimaire();
-		$this->getRepository()->delete($primaryKey);
-	
-		if	($repository->isFeminine())	$pagetitle =  ucfirst($objectName) . "supprimée avec succès";
+		$repository = $this->getRepository();
+        $objectName = $repository->getNomTable();
+        $primaryKey = $repository->getNomClePrimaire();
+		$repository->delete($primaryKey);
+
+		if	($repository->isFeminine())	$pagetitle = ucfirst($objectName) . "supprimée avec succès";
 		else							$pagetitle = "$objectName supprimé avec succès";
 	
 		self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
