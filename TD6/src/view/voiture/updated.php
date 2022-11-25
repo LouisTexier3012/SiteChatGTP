@@ -1,5 +1,10 @@
-<?php /* @var String $immatriculation*/?>
+<?php
+
+use App\Covoiturage\Model\Repository\VoitureRepository;
+
+/* @var VoitureRepository $voiture*/
+ ?>
 
 <body>
-    <p>La voiture d'immatriculation <?= htmlspecialchars($immatriculation)?> a bien été modifiée !</p>
+    <p>La voiture d'immatriculation <?= htmlspecialchars($voiture->getImmatriculation())?> a bien été modifiée !</p>
 </body>

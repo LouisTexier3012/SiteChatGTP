@@ -7,7 +7,7 @@ use App\Covoiturage\Model\DataObject\Trajet;
 <body>
 <form method="GET" action='frontController.php'>
     <fieldset>
-        <legend>Créer un nouveau trajet:</legend>
+        <legend>Modifier un trajet:</legend>
         <p>
             <label for="id">Id</label> :
             <input type="text" placeholder="" name="id" id="id" value="<?= htmlspecialchars($trajet->getId())?>" readonly/>

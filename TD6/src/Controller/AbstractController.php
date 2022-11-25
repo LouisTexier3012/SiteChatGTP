@@ -14,16 +14,22 @@ abstract class AbstractController
         require __DIR__ . "/../view/$cheminVue";
     }
 
+	/**
+	 * @noinspection PhpUnused
+	 */
     public function readAll() : void {
 
         $objects = $this->getRepository()->selectAll();
         $objectName = $this->getRepository()->getNomTable();
-		
+
 		self::afficheVue('../view/view.php',	["pagetitle" => "Liste des $objectName" . "s",
                                                          "cheminVueBody" => "$objectName/list.php",
                                                          "$objectName" . "s" => $objects]);
     }
 
+	/**
+	 * @noinspection PhpUnused
+	 */
     public function create() : void {
 
 		$repository = $this->getRepository();
@@ -36,11 +42,14 @@ abstract class AbstractController
         self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
         												 "cheminVueBody" => "$objectName/create.php"]);
     }
-	
+
+	/**
+	 * @noinspection PhpUnused
+	 */
 	public function created(): void
 	{
 		$repository = $this->getRepository();
-		$columns = array($repository->getNomsColonnes());
+		$columns = $repository->getNomsColonnes();
 		$objectName = $repository->getNomTable();
 		
 		$objectArray = [];
@@ -57,7 +66,10 @@ abstract class AbstractController
 														 "cheminVueBody" => "$objectName/created.php",
 														 "$objectName" => $object]);
 	}
-    
+
+	/**
+	 * @noinspection PhpUnused
+	 */
     public function read() : void
 	{
         $repository = $this->getRepository();
@@ -77,6 +89,9 @@ abstract class AbstractController
         else $this->error("Cette page n'existe pas");
     }
 
+	/**
+	 * @noinspection PhpUnused
+	 */
     public function update(): void
     {
 		$repository = $this->getRepository();
@@ -88,21 +103,27 @@ abstract class AbstractController
 		else										$pagetitle = "Modification du $objectName";
 		
 		self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-														 "cheminVueBody" => "trajet/update.php",
+														 "cheminVueBody" => "$objectName/update.php",
 														 "$objectName" => $repository->select($_GET["$primaryKey"])]);
     }
-	
+
+	/**
+	 * @noinspection PhpUnused
+	 */
 	public function updated(): void
 	{
 		$repository = $this->getRepository();
-		$columns = array($repository->getNomsColonnes());
+		$columns = $repository->getNomsColonnes();
 		$objectName = $repository->getNomTable();
 		
 		$objectArray = [];
-		foreach ($columns as $column) $objectArray[$column] = $_GET[$column];
+		foreach ($columns as $column)
+		{
+			$objectArray[$column] = $_GET[$column];
+		}
 		
 		$object = $repository->construire($objectArray);
-		$repository->create($object);
+		$repository->update($object);
 	
 		if	($repository->isFeminine())	$pagetitle = "$objectName modifiée avec succès";
 		else							$pagetitle = "$objectName modifié avec succès";
@@ -112,7 +133,10 @@ abstract class AbstractController
 														 "$objectName" => $object]);
 	}
 
-    protected function delete() : void
+	/**
+	 * @noinspection PhpUnused
+	 */
+    public function delete() : void
     {
 		$repository = $this->getRepository();
         $objectName = $repository->getNomTable();
@@ -126,7 +150,7 @@ abstract class AbstractController
 														 "cheminVueBody" => "$objectName/deleted.php",
 														 "$primaryKey" => $_GET[$primaryKey]]);
     }
-	
+
 	public function error(string $message) : void
 	{
 		self::afficheVue('../view/view.php',	["pagetitle" => "Page d'erreur",
