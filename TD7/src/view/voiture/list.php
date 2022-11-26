@@ -11,11 +11,11 @@ foreach ($voitures as $voiture) {
                 Voiture ' . $marqueHTML . ' d\'immatriculation <a href="frontController.php?controller=voiture&action=read&immatriculation=' . $immatriculationURL . '">' . $immatriculationHTML .'</a>
             </p>
             <div>
-                <a href="frontController.php?controller=voiture&action=update&&immatriculation=' . $immatriculationURL . '"><img src="svg/pen.svg" alt="pen"/></a>
-                <a href="frontController.php?controller=voiture&action=delete&immatriculation=' . $immatriculationURL . '"><img src="svg/cross.svg" alt="cross"/></a>
+                <a href="frontController.php?controller=voiture&action=update&&immatriculation=' . $immatriculationURL . '"><img src="../assets/svg/pen.svg" alt="pen"/></a>
+                <a href="frontController.php?controller=voiture&action=delete&immatriculation=' . $immatriculationURL . '"><img src="../assets/svg/cross.svg" alt="cross"/></a>
             </div>
         </div>';
 }
 echo   '<div class="list">
-            <a href="frontController.php?controller=voiture&action=create"><img src="svg/add.svg" alt="add"/></a>
+            <a href="frontController.php?controller=voiture&action=create"><img src="../assets/svg/add.svg" alt="add"/></a>
         </div>';

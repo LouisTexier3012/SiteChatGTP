@@ -12,11 +12,11 @@ foreach ($trajets as $trajet) {
                 Trajet <a href="frontController.php?controller=trajet&action=read&id='.$idURL.'">'.$departHTML.'-'.$arriveeHTML.'</a>
             </p>
             <div>
-                <a href="frontController.php?controller=trajet&action=update&id=' . $idURL . '"><img src="svg/pen.svg" alt="pen"/></a>
-                <a href="frontController.php?controller=trajet&action=delete&id=' . $idURL . '"><img src="svg/cross.svg" alt="cross"/></a>
+                <a href="frontController.php?controller=trajet&action=update&id=' . $idURL . '"><img src="../assets/svg/pen.svg" alt="pen"/></a>
+                <a href="frontController.php?controller=trajet&action=delete&id=' . $idURL . '"><img src="../assets/svg/cross.svg" alt="cross"/></a>
             </div>
         </div>';
 }
 echo   '<div class="list">
-            <a href="frontController.php?controller=trajet&action=create"><img src="svg/add.svg" alt="add"/></a>
+            <a href="frontController.php?controller=trajet&action=create"><img src="../assets/svg/add.svg" alt="add"/></a>
         </div>';

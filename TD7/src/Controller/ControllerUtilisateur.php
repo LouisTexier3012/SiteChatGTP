@@ -2,12 +2,11 @@
 
 namespace App\Covoiturage\Controller;
 
-use App\Covoiturage\Model\HTTP\Cookie;
 use App\Covoiturage\Model\Repository\UtilisateurRepository;
 
-class ControllerUtilisateur extends GenericController
+class ControllerUtilisateur extends GenericController implements InterfaceController
 {
-    protected function getRepository() : UtilisateurRepository
+    public function getRepository() : UtilisateurRepository
     {
         return new UtilisateurRepository();
     }

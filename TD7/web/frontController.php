@@ -1,6 +1,8 @@
 <?php
 
-use App\Covoiturage\Controller\ControllerVoiture;
+use App\Covoiturage\Controller\GenericController;
+use App\Covoiturage\Lib\PreferenceController;
+use App\Covoiturage\Controller\ControllerUtilisateur;
 
 require_once __DIR__ . '/../src/Lib/Psr4AutoloaderClass.php';
 
@@ -11,13 +13,14 @@ $loader->register(); // register the autoloader
 if (isset($_GET["action"])) $action = $_GET["action"];
 else						$action = "readAll";
 
-if (isset($_GET["controller"])) $controllerClassName = "App\Covoiturage\Controller\Controller" . ucfirst($_GET['controller']);
-else							$controllerClassName = "App\Covoiturage\Controller\ControllerVoiture";
+if      (isset($_GET["controller"]))      $controllerClassName = "App\Covoiturage\Controller\Controller" . ucfirst($_GET['controller']);
+elseif  (PreferenceController::existe())  $controllerClassName = "App\Covoiturage\Controller\Controller" . PreferenceController::lire();
+else                                      $controllerClassName = "App\Covoiturage\Controller\ControllerVoiture";
 
 if (class_exists($controllerClassName)) {
 
-	if (in_array($action, get_class_methods($controllerClassName))) (new $controllerClassName())->$action();
-	else (new $controllerClassName())->error("Cette action n'existe pas pour ce controlleur");
+	if (in_array($action, get_class_methods($controllerClassName))) (new $controllerClassName)->$action();
+	else (new GenericController)->error("Cette action n'existe pas pour ce controlleur");
 }
-else (new ControllerVoiture())->error("Ce controlleur n'existe pas");
+else (new GenericController)->error("Ce controlleur n'existe pas");
 ?>

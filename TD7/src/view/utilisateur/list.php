@@ -12,11 +12,11 @@ foreach ($utilisateurs as $utilisateur) {
                 Utilisateur <a href="frontController.php?controller=utilisateur&action=read&login='.$loginURL.'">'.$prenomHTML.' '.$nomHTML.'</a>
             </p>
             <div>
-                <a href="frontController.php?controller=utilisateur&action=update&login=' . $loginURL . '"><img src="svg/pen.svg" alt="pen"/></a>
-                <a href="frontController.php?controller=utilisateur&action=delete&login=' . $loginURL . '"><img src="svg/cross.svg" alt="cross"/></a>
+                <a href="frontController.php?controller=utilisateur&action=update&login=' . $loginURL . '"><img src="../assets/svg/pen.svg" alt="pen"/></a>
+                <a href="frontController.php?controller=utilisateur&action=delete&login=' . $loginURL . '"><img src="../assets/svg/cross.svg" alt="cross"/></a>
             </div>
         </div>';
 }
 echo   '<div class="list">
-            <a href="frontController.php?controller=utilisateur&action=create"><img src="svg/add.svg" alt="add"/></a>
+            <a href="frontController.php?controller=utilisateur&action=create"><img src="../assets/svg/add.svg" alt="add"/></a>
         </div>';

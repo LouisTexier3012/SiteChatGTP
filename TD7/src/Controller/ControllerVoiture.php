@@ -4,10 +4,10 @@ namespace App\Covoiturage\Controller;
 
 use App\Covoiturage\Model\Repository\VoitureRepository;
 
-class ControllerVoiture extends GenericController
+class ControllerVoiture extends GenericController implements InterfaceController
 {
-    protected function getRepository(): VoitureRepository
-    {
-        return new VoitureRepository();
-    }
+	public function getRepository() : VoitureRepository
+	{
+		return new VoitureRepository();
+	}
 }

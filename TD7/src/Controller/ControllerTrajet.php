@@ -4,9 +4,9 @@ namespace App\Covoiturage\Controller;
 
 use App\Covoiturage\Model\Repository\TrajetRepository;
 
-class ControllerTrajet extends GenericController
+class ControllerTrajet extends GenericController implements InterfaceController
 {
-    protected function getRepository(): TrajetRepository
+    public function getRepository(): TrajetRepository
     {
         return new TrajetRepository();
     }
