@@ -13,7 +13,7 @@ $loader->register(); // register the autoloader
 if (isset($_GET["action"])) $action = $_GET["action"];
 else						$action = "readAll";
 
-if      (isset($_GET["controller"]))      $controllerClassName = "App\Covoiturage\Controller\Controller" . ucfirst($_GET['controller']);
+if      (isset($_GET["controller"]))      $controllerClassName = "App\Covoiturage\Controller\Controller" . ucfirst(strtolower($_GET['controller']));
 elseif  (PreferenceController::existe())  $controllerClassName = "App\Covoiturage\Controller\Controller" . PreferenceController::lire();
 else                                      $controllerClassName = "App\Covoiturage\Controller\ControllerVoiture";
 
@@ -23,4 +23,3 @@ if (class_exists($controllerClassName)) {
 	else (new GenericController)->error("Cette action n'existe pas pour ce controlleur");
 }
 else (new GenericController)->error("Ce controlleur n'existe pas");
-?>

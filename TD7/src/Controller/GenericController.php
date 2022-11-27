@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Covoiturage\Controller;
+namespace App\Faireply\Controller;
 
-use App\Covoiturage\Lib\PreferenceController;
+//use App\Faireply\Lib\PreferenceController;
 
 class GenericController
 {
@@ -50,9 +50,7 @@ class GenericController
 		$columns = $repository->getNomsColonnes();
 		$objectName = $repository->getNomTable();
 		
-		//$objectArray = [];
 		foreach ($columns as $column) $objectArray[$column] = $_GET[$column];
-		
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
 		
@@ -144,10 +142,17 @@ class GenericController
 																									 "$primaryKey" => strtolower($_GET[$primaryKey])]);
 	}
 	
+	public function error(string $message) : void
+	{
+		self::afficheVue('../view/view.php',	["pagetitle" => "Page d'erreur",
+																										 "cheminVueBody" => "error.php",
+																										 "message" => $message]);
+	}
+	
 	public function formulairePreference() : void
 	{
 		self::afficheVue("../view/view.php",  ["pagetitle" => "Formulaire de préférence",
-																										 "cheminVueBody" => "formulairePreference.php"]);
+			"cheminVueBody" => "formulairePreference.php"]);
 	}
 	
 	public function enregistrerPreference() : void
@@ -155,14 +160,7 @@ class GenericController
 		PreferenceController::enregistrer(ucfirst(strtolower($_GET["controller"])));
 		
 		self::afficheVue("../view/view.php",  ["pagetitle" =>  "Préférences enregistrées",
-																										 "cheminVueBody" => "enregistrerPreference.php",
-																										 "controller" => ucfirst(strtolower($_GET["controller"]))]);
-	}
-
-	public function error(string $message) : void
-	{
-		self::afficheVue('../view/view.php',	["pagetitle" => "Page d'erreur",
-																										 "cheminVueBody" => "error.php",
-																										 "message" => $message]);
+			"cheminVueBody" => "enregistrerPreference.php",
+			"controller" => ucfirst(strtolower($_GET["controller"]))]);
 	}
 }
