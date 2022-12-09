@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Covoiturage\Model\Repository;
+
 use App\Covoiturage\Config\Conf;
 use PDO;
 
@@ -42,5 +44,4 @@ class DatabaseConnection
 
         return static::$instance;
     }
-
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Faireply\Controller;
+namespace App\Covoiturage\Controller;
 
 //use App\Faireply\Lib\PreferenceController;
 

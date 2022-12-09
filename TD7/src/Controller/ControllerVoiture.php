@@ -3,6 +3,7 @@
 namespace App\Covoiturage\Controller;
 
 use App\Covoiturage\Model\Repository\VoitureRepository;
+use App\Covoiturage\Controller\GenericController;
 
 class ControllerVoiture extends GenericController implements InterfaceController
 {
