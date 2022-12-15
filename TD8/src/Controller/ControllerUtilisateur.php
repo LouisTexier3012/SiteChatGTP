@@ -2,6 +2,7 @@
 
 namespace App\Covoiturage\Controller;
 
+use App\Covoiturage\Lib\MotDePasse;
 use App\Covoiturage\Model\HTTP\Session;
 use App\Covoiturage\Model\Repository\UtilisateurRepository;
 use function Sodium\compare;
@@ -26,8 +27,20 @@ class ControllerUtilisateur extends GenericController implements InterfaceContro
 	{
 		if ($_GET["password"] == $_GET["password2"])
 		{
-			GenericController::created();
+			parent::created();
 		}
-		else GenericController::error("Vérifiez que les mots de passe soient identiques");
+		else parent::error("Vérifiez que les mots de passe soient identiques");
+	}
+	
+	public function updated(): void
+	{
+		$identique = $_GET["password"] == $_GET["password2"];
+		$correct = MotDePasse::verifier($_GET["actualPassword"]);
+		
+		if (/*          */)
+		{
+			parent::updated();
+		}
+		else parent::error("Vérifiez que les mots de passe soient identiques");
 	}
 }
