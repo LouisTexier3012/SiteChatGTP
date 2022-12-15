@@ -10,14 +10,14 @@ class Utilisateur extends AbstractDataObject
     private string $login;
     private string $nom;
     private string $prenom;
-		private string $mdpHache;
+		private string $password;
 		
-    public function __construct(string $login, string $nom, string $prenom, string $mdpHache)
+    public function __construct(string $login, string $nom, string $prenom, string $password)
     {
         $this->login = $login;
         $this->nom = $nom;
         $this->prenom = $prenom;
-				$this->mdpHache = $mdpHache;
+		$this->password = $password;
     }
 
     public function getLogin(): string
@@ -35,14 +35,14 @@ class Utilisateur extends AbstractDataObject
         return $this->prenom;
     }
 	
-	public function getMdpHache(): string
+	public function getPassword(): string
 	{
-		return $this->mdpHache;
+		return $this->password;
 	}
 	
-	public function setMdpHache(string $mdpClair): void
+	public function setPassword(string $mdpClair): void
 	{
-		$this->mdpHache = MotDePasse::hacher($mdpClair);
+		$this->password = MotDePasse::hacher($mdpClair);
 	}
 
     public function formatTableau(): array
@@ -50,6 +50,6 @@ class Utilisateur extends AbstractDataObject
         return array("login" => $this->login,
                      "prenom" => $this->prenom,
 					           "nom" => $this->nom,
-										 "mdpHache" => $this->mdpHache);
+										 "password" => $this->password);
     }
 }

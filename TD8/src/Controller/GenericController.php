@@ -4,9 +4,11 @@ namespace App\Covoiturage\Controller;
 
 //use App\Faireply\Lib\PreferenceController;
 
+use App\Covoiturage\Lib\MotDePasse;
+
 class GenericController
 {
-	private function afficheVue(string $cheminVue, array $parametres = []): void
+	protected function afficheVue(string $cheminVue, array $parametres = []): void
 	{
 		extract($parametres);
 		require __DIR__ . "/../view/$cheminVue";
@@ -50,7 +52,16 @@ class GenericController
 		$columns = $repository->getNomsColonnes();
 		$objectName = $repository->getNomTable();
 		
-		foreach ($columns as $column) $objectArray[$column] = $_GET[$column];
+		foreach ($columns as $column)
+		{
+			if (isset($_GET[$column]))
+				
+				if ($column == "password")
+				{
+					$objectArray[$column] = MotDePasse::hacher($_GET[$column]);
+				}
+				else $objectArray[$column] = $_GET[$column];
+		}
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
 		

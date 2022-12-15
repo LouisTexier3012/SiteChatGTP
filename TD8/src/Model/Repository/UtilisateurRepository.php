@@ -2,6 +2,7 @@
 
 namespace App\Covoiturage\Model\Repository;
 
+use App\Covoiturage\Lib\MotDePasse;
 use App\Covoiturage\Model\DataObject\Utilisateur;
 
 class UtilisateurRepository extends AbstractRepository
@@ -21,14 +22,14 @@ class UtilisateurRepository extends AbstractRepository
         $login = $utilisateurFormatTableau['login'];
         $nom = $utilisateurFormatTableau['nom'];
         $prenom = $utilisateurFormatTableau['prenom'];
-				$mdpHache = $utilisateurFormatTableau['mdpHache'];
+		$password = MotDePasse::hacher($utilisateurFormatTableau['password']);
 
-        return new Utilisateur($login, $nom, $prenom, $mdpHache);
+        return new Utilisateur($login, $nom, $prenom, $password);
     }
 	
 	public function getNomsColonnes() : array
     {
-        return ['login', 'nom', 'prenom', 'mdpHache'];
+        return ['login', 'nom', 'prenom', 'password'];
     }
 	
 	public function isFirstLetterVowel() : bool
