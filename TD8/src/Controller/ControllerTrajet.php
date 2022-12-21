@@ -8,6 +8,6 @@ class ControllerTrajet extends GenericController implements InterfaceController
 {
     public function getRepository(): TrajetRepository
     {
-        return new TrajetRepository();
+		return new TrajetRepository();
     }
 }

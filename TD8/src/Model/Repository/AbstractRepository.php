@@ -12,7 +12,7 @@ abstract class AbstractRepository
 	
 	public abstract function getNomsColonnes() : array;
 	
-	protected abstract function construire(array $utilisateurFormatTableau) : AbstractDataObject;
+	protected abstract function construire(array $utilisateurArray) : AbstractDataObject;
 	
 	public abstract function isFirstLetterVowel() : bool;
 	
@@ -37,9 +37,9 @@ abstract class AbstractRepository
 
         $values = array($this->getNomClePrimaire() => $valeurClePrimaire);
         $pdoStatement->execute($values);
-        $voiture = $pdoStatement->fetch(); //fetch() renvoie false si pas de voiture correspondante
+        $object = $pdoStatement->fetch(); //fetch() renvoie false si pas de object correspondant
 
-        if ($voiture != false) return static::construire($voiture);
+        if ($object != false) return static::construire($object);
         else                   return null;
     }
 
@@ -57,7 +57,7 @@ abstract class AbstractRepository
             } else $sql .= ', :' . $column;
         }
         $sql .= ')';
-
+				
         $pdo = DatabaseConnection::getPdo()->prepare($sql);
         $pdo->execute($object->formatTableau());
     }
@@ -90,4 +90,20 @@ abstract class AbstractRepository
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
         $pdoStatement->execute(array("valeurClePrimaire" => $valeurClePrimaire));
     }
+	
+	public function test() : void
+	{
+		
+		
+		
+		$mdpClair = "saucisse";
+		
+		$mdpHache = MotDePasse::hacher($mdpClair);
+		
+		$correct = MotDePasse::verifier($mdpClair, $mdpHache);
+		
+		var_dump($mdpClair);
+		var_dump($mdpHache);
+		var_dump($correct);
+	}
 }

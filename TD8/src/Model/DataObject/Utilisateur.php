@@ -6,7 +6,6 @@ use App\Covoiturage\Lib\MotDePasse;
 
 class Utilisateur extends AbstractDataObject
 {
-
     private string $login;
     private string $nom;
     private string $prenom;
@@ -47,9 +46,9 @@ class Utilisateur extends AbstractDataObject
 
     public function formatTableau(): array
     {
-        return array("login" => $this->login,
-                     "prenom" => $this->prenom,
-					           "nom" => $this->nom,
-										 "password" => $this->password);
+        return ["login" => $this->login,
+				"prenom" => $this->prenom,
+				"nom" => $this->nom,
+				"password" => $this->password];
     }
 }

@@ -22,15 +22,16 @@ class TrajetRepository extends AbstractRepository
         return ['id', 'depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
     }
 	
-	public function construire(array $utilisateurFormatTableau): AbstractDataObject
+	public function construire(array $utilisateurArray): AbstractDataObject
     {
-        $id = $utilisateurFormatTableau['id'];
-        $depart = $utilisateurFormatTableau['depart'];
-        $arrivee = $utilisateurFormatTableau['arrivee'];
-        $date = $utilisateurFormatTableau['date'];
-        $nbPlaces = $utilisateurFormatTableau['nbPlaces'];
-        $prix = $utilisateurFormatTableau['prix'];
-        $conducteurLogin = $utilisateurFormatTableau['conducteurLogin'];
+		if (isset($utilisateurArray['id'])) $id = $utilisateurArray['id'];
+		else                           $id = null;
+        $depart = $utilisateurArray['depart'];
+        $arrivee = $utilisateurArray['arrivee'];
+        $date = $utilisateurArray['date'];
+        $nbPlaces = $utilisateurArray['nbPlaces'];
+        $prix = $utilisateurArray['prix'];
+        $conducteurLogin = $utilisateurArray['conducteurLogin'];
 
         return new Trajet($id, $depart, $arrivee, $date, $nbPlaces, $prix, $conducteurLogin);
     }

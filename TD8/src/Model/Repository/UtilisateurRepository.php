@@ -17,12 +17,12 @@ class UtilisateurRepository extends AbstractRepository
         return 'login';
     }
 	
-	public function construire(array $utilisateurFormatTableau) : Utilisateur
+	public function construire(array $utilisateurArray) : Utilisateur
     {
-        $login = $utilisateurFormatTableau['login'];
-        $nom = $utilisateurFormatTableau['nom'];
-        $prenom = $utilisateurFormatTableau['prenom'];
-		$password = MotDePasse::hacher($utilisateurFormatTableau['password']);
+        $login = $utilisateurArray['login'];
+        $nom = $utilisateurArray['nom'];
+        $prenom = $utilisateurArray['prenom'];
+		$password = $utilisateurArray['password'];
 
         return new Utilisateur($login, $nom, $prenom, $password);
     }

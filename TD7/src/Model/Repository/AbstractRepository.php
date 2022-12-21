@@ -12,7 +12,7 @@ abstract class AbstractRepository
 	
 	public abstract function getNomsColonnes() : array;
 	
-	protected abstract function construire(array $utilisateurFormatTableau) : AbstractDataObject;
+	protected abstract function construire(array $utilisateurArray) : AbstractDataObject;
 	
 	public abstract function isFirstLetterVowel() : bool;
 	

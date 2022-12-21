@@ -12,7 +12,7 @@ abstract class AbstractRepository
 	
 	public abstract function getNomsColonnes() : array;
 	
-	protected abstract function construire(array $utilisateurFormatTableau) : AbstractDataObject;
+	protected abstract function construire(array $utilisateurArray) : AbstractDataObject;
 	
 	public abstract function isFirstLetterVowel() : bool;
 	
@@ -37,9 +37,9 @@ abstract class AbstractRepository
 
         $values = array($this->getNomClePrimaire() => $valeurClePrimaire);
         $pdoStatement->execute($values);
-        $voiture = $pdoStatement->fetch(); //fetch() renvoie false si pas de voiture correspondante
+        $object = $pdoStatement->fetch(); //fetch() renvoie false si pas de voiture correspondante
 
-        if ($voiture != false) return static::construire($voiture);
+        if ($object != false) return static::construire($object);
         else                   return null;
     }
 

@@ -6,8 +6,8 @@ use App\Covoiturage\Model\DataObject\Voiture;
 
 class VoitureRepository extends AbstractRepository {
 
-    public function construire(array $voitureFormatTableau = []) : Voiture {
-
+    public function construire(array $voitureFormatTableau = []) : Voiture
+	{
         $marque = $voitureFormatTableau['marque'];
         $couleur = $voitureFormatTableau['couleur'];
         $immatriculation = $voitureFormatTableau['immatriculation'];
@@ -16,8 +16,8 @@ class VoitureRepository extends AbstractRepository {
         return new Voiture($marque, $couleur, $immatriculation, $nbSieges);
     }
 
-	public function getNomTable(): string {
-
+	public function getNomTable(): string
+	{
 		return 'voiture';
 	}
 	

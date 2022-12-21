@@ -25,32 +25,40 @@ class Session
 		return static::$instance;
 	}
 	
-	public function contient($name): bool
+	public function contains($name): bool
 	{
 		return isset($_SESSION[$name]);
 	}
 	
-	public function enregistrer(string $name, mixed $value): void
+	public function enregistrer(string $name, $value): void
 	{
 		$_SESSION[$name] = $value;
 	}
 	
-	public function lire(string $name): mixed
+	public function read(string $name)
 	{
-		return $_SESSION[$name];
+		return static::getInstance()->contains($name) ? $_SESSION[$name] : null;
 	}
 	
-	public function supprimer($name): void
+	public function delete($name): void
 	{
 		unset($_SESSION[$name]);
 	}
 	
 	public function detruire() : void
 	{
-		session_unset();     //unset $_SESSION variable for the run-time
-		session_destroy();   //destroy session data in storage
-		Cookie::supprimer(session_name()); // deletes the session cookie
-		//Il faudra reconstruire la session au prochain appel de getInstance()
-		$instance = null;
+		session_unset();                    //unset $_SESSION variable for the run-time
+		session_destroy();                  //destroy session data in storage
+		Cookie::supprimer(session_name());  //deletes the session cookie
+		$instance = null;                   //il faudra reconstruire la session au prochain appel de getInstance()
+	}
+	
+	public static function verifierDerniereActivite() : void
+	{
+		if (isset($_SESSION['derniereActivite']) && time() - $_SESSION['derniereActivite'] > $dureeExpiration)
+		{
+			session_unset(); //unsets $_SESSION variable for the run-time
+		}
+		$_SESSION['derniereActivite'] = time(); //update last activity time stamp
 	}
 }

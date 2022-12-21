@@ -4,7 +4,10 @@ namespace App\Covoiturage\Controller;
 
 //use App\Faireply\Lib\PreferenceController;
 
+use App\Covoiturage\Lib\FlashMessageManager;
+use App\Covoiturage\Lib\FlashType;
 use App\Covoiturage\Lib\MotDePasse;
+use App\Covoiturage\Lib\PreferenceController;
 
 class GenericController
 {
@@ -22,9 +25,9 @@ class GenericController
 		$objects = $this->getRepository()->selectAll();
 		$objectName = $this->getRepository()->getNomTable();
 
-		self::afficheVue('../view/view.php',	["pagetitle" => "Liste des $objectName" . "s",
-																																		"cheminVueBody" => "$objectName/list.php",
-																																		"$objectName" . "s" => $objects]);
+		self::afficheVue('../view/view.php', ["pagetitle" => "Liste des $objectName" . "s",
+														"cheminVueBody" => "$objectName/list.php",
+														"$objectName" . "s" => $objects]);
 	}
 
 	/**
@@ -35,12 +38,12 @@ class GenericController
 		$repository = $this->getRepository();
 		$objectName = $repository->getNomTable();
 	
-		if      ($repository->isFeminine())         $pagetitle = "Ajouter une nouvelle $objectName";
-		elseif  ($repository->isFirstLetterVowel()) $pagetitle = "Ajouter un nouvel $objectName";
-		else                                        $pagetitle = "Ajouter un nouveau $objectName";
+		if		($repository->isFeminine())			$pagetitle = "Ajouter une nouvelle $objectName";
+		elseif	($repository->isFirstLetterVowel())	$pagetitle = "Ajouter un nouvel $objectName";
+		else										$pagetitle = "Ajouter un nouveau $objectName";
 	
-		self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-																										 "cheminVueBody" => "$objectName/create.php"]);
+		self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
+														"cheminVueBody" => "$objectName/create.php"]);
 	}
 
 	/**
@@ -54,24 +57,12 @@ class GenericController
 		
 		foreach ($columns as $column)
 		{
-			if (isset($_GET[$column]))
-				
-				if ($column == "password")
-				{
-					$objectArray[$column] = MotDePasse::hacher($_GET[$column]);
-				}
-				else $objectArray[$column] = $_GET[$column];
+			if (isset($_GET[$column])) $objectArray[$column] = $_GET[$column];
 		}
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
 		
-		if      ($repository->isFeminine())         $pagetitle = "Ajouter une nouvelle $objectName";
-		elseif	($repository->isFirstLetterVowel()) $pagetitle = "Ajouter un nouvel $objectName";
-		else                                        $pagetitle = "Ajouter un nouveau $objectName";
-		
-		self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-																										 "cheminVueBody" => "$objectName/created.php",
-																										 "$objectName" => $object]);
+		header("Location: frontController.php");
 	}
 
 	/**
@@ -83,15 +74,15 @@ class GenericController
 		$objectName = $repository->getNomTable();
 		$object = $repository->select($_GET[$repository->getNomClePrimaire()]);
 	
-		if      ($repository->isFirstLetterVowel()) $pagetitle = "Détail de l'$objectName";
-		elseif  ($repository->isFeminine())         $pagetitle = "Détail de la $objectName";
-		else                                        $pagetitle = "Détail du $objectName";
+		if		($repository->isFirstLetterVowel())	$pagetitle = "Détail de l'$objectName";
+		elseif	($repository->isFeminine())			$pagetitle = "Détail de la $objectName";
+		else										$pagetitle = "Détail du $objectName";
 		
 		if (!is_null($object))
 		{
-			self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-																																			"cheminVueBody" => "$objectName/detail.php",
-																																			"$objectName" => $object]);
+			self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
+															"cheminVueBody" => "$objectName/detail.php",
+															"$objectName" => $object]);
 		}
 		else $this->error("Cette page n'existe pas");
 	}
@@ -105,13 +96,13 @@ class GenericController
 		$objectName = $repository->getNomTable();
 		$primaryKey = $repository->getNomClePrimaire();
 	
-		if      ($repository->isFirstLetterVowel()) $pagetitle = "Modification de l'$objectName";
-		elseif  ($repository->isFeminine())         $pagetitle = "Modification de la $objectName";
-		else                                        $pagetitle = "Modification du $objectName";
+		if		($repository->isFirstLetterVowel())	$pagetitle = "Modification de l'$objectName";
+		elseif	($repository->isFeminine())			$pagetitle = "Modification de la $objectName";
+		else										$pagetitle = "Modification du $objectName";
 	
-	self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-																									 "cheminVueBody" => "$objectName/update.php",
-																									 "$objectName" => $repository->select(strtolower($_GET["$primaryKey"]))]);
+		self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
+														"cheminVueBody" => "$objectName/update.php",
+														"$objectName" => $repository->select(strtolower($_GET["$primaryKey"]))]);
 	}
 
 	/**
@@ -123,16 +114,14 @@ class GenericController
 		$columns = $repository->getNomsColonnes();
 		$objectName = $repository->getNomTable();
 		
-		foreach ($columns as $column) $objectArray[$column] = $_GET[$column];
+		foreach ($columns as $column)
+		{
+			if (isset($_GET[$column])) $objectArray[$column] = $_GET[$column];
+		}
 		$object = $repository->construire($objectArray);
 		$repository->update($object);
-	
-		if  ($repository->isFeminine()) $pagetitle = ucfirst(strtolower($objectName)) . " modifiée avec succès";
-		else                            $pagetitle = ucfirst(strtolower($objectName)) . " modifié avec succès";
 		
-		self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-																										 "cheminVueBody" => "$objectName/updated.php",
-																										 "$objectName" => $object]);
+		header("Location: frontController.php");
 	}
 
 	/**
@@ -140,38 +129,28 @@ class GenericController
 	 */
 	public function delete() : void
 	{
-	$repository = $this->getRepository();
-	$objectName = $repository->getNomTable();
-	$primaryKey = $repository->getNomClePrimaire();
-	$repository->delete(strtolower($_GET[$primaryKey]));
-
-	if	($repository->isFeminine())	$pagetitle = ucfirst($objectName) . " supprimée avec succès";
-	else                            $pagetitle = ucfirst($objectName) . " supprimé avec succès";
-	
-	self::afficheVue('../view/view.php',	["pagetitle" => "$pagetitle",
-																									 "cheminVueBody" => "$objectName/deleted.php",
-																									 "$primaryKey" => strtolower($_GET[$primaryKey])]);
-	}
-	
-	public function error(string $message) : void
-	{
-		self::afficheVue('../view/view.php',	["pagetitle" => "Page d'erreur",
-																										 "cheminVueBody" => "error.php",
-																										 "message" => $message]);
+		$repository = $this->getRepository();
+		$objectName = $repository->getNomTable();
+		$repository->delete(strtolower($_GET[$repository->getNomClePrimaire()]));
+		
+		if	($repository->isFeminine())	FlashMessageManager::add(ucfirst($objectName) . " supprimée avec succès", FlashType::SUCCESS);
+		else							FlashMessageManager::add(ucfirst($objectName) . " supprimé avec succès", FlashType::SUCCESS);
+		
+		header("Location: frontController.php");
 	}
 	
 	public function formulairePreference() : void
 	{
-		self::afficheVue("../view/view.php",  ["pagetitle" => "Formulaire de préférence",
-			"cheminVueBody" => "formulairePreference.php"]);
+		self::afficheVue("../view/view.php", ["pagetitle" => "Formulaire de préférence",
+														"cheminVueBody" => "formulairePreference.php"]);
 	}
 	
 	public function enregistrerPreference() : void
 	{
 		PreferenceController::enregistrer(ucfirst(strtolower($_GET["controller"])));
 		
-		self::afficheVue("../view/view.php",  ["pagetitle" =>  "Préférences enregistrées",
-			"cheminVueBody" => "enregistrerPreference.php",
-			"controller" => ucfirst(strtolower($_GET["controller"]))]);
+		self::afficheVue("../view/view.php", ["pagetitle" =>  "Préférences enregistrées",
+														"cheminVueBody" => "enregistrerPreference.php",
+														"controller" => ucfirst(strtolower($_GET["controller"]))]);
 	}
 }

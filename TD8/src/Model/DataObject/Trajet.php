@@ -4,7 +4,7 @@ namespace App\Covoiturage\Model\DataObject;
 
 class Trajet extends AbstractDataObject {
 
-    private int $id;
+    private ?int $id;
     private string $depart;
     private string $arrivee;
     private string $date;
@@ -12,9 +12,9 @@ class Trajet extends AbstractDataObject {
     private int $prix;
     private string $conducteurLogin;
 
-    public function __construct(int $id, string $depart, string $arrivee, string $date, int $nbPlaces, int $prix, string $conducteurLogin)
+    public function __construct(?int $id, string $depart, string $arrivee, string $date, int $nbPlaces, int $prix, string $conducteurLogin)
     {
-        $this->id = $id;
+				$this->id = $id;
         $this->depart = $depart;
         $this->arrivee = $arrivee;
         $this->date = $date;
@@ -23,7 +23,7 @@ class Trajet extends AbstractDataObject {
         $this->conducteurLogin = $conducteurLogin;
     }
 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -61,7 +61,7 @@ class Trajet extends AbstractDataObject {
     public function formatTableau(): array
     {
         return array("id" => $this->id,
-                     "depart" => $this->depart,
+										 "depart" => $this->depart,
                      "arrivee" => $this->arrivee,
                      "date" => $this->date,
                      "nbPlaces" => $this->nbPlaces,
