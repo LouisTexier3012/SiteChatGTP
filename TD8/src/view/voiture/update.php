@@ -1,23 +1,21 @@
 <?php /* @var App\Covoiturage\Model\DataObject\Voiture $voiture*/?>
 
-<form method="GET" action='frontController.php'>
+<form method="POST" action='frontController.php?controller=voiture&action=updated'>
     <legend>Modifiez votre voiture</legend>
-    <input type='hidden' name='action' value='updated'>
-    <input type='hidden' name='controller' value='voiture'>
     <li>
-        <input type="text" placeholder="123AB45" name="immatriculation" value="<?=htmlspecialchars($voiture->getImmatriculation())?>" readonly/>
+        <input type="text" name="immatriculation" value="<?=htmlspecialchars($voiture->getImmatriculation())?>" placeholder="###AA##" readonly/>
         <label>Immatriculation</label>
     </li>
     <li>
-        <input type="text" placeholder="Entrez la marque de votre voiture" name="marque" value="<?=htmlspecialchars($voiture->getMarque())?>" required/>
+        <input type="text" name="marque" value="<?=$_POST["marque"] ?? htmlspecialchars($voiture->getMarque())?>" placeholder="Entrez la marque de votre voiture" required/>
         <label>Marque</label>
     </li>
     <li>
-        <input type="text" placeholder="Entrez la couleur de votre voiture" name="couleur" value="<?=htmlspecialchars($voiture->getCouleur())?>" required/>
+        <input type="text" name="couleur" value="<?=$_POST["couleur"] ?? htmlspecialchars($voiture->getCouleur())?>" placeholder="Entrez la couleur de votre voiture" required/>
         <label>Couleur</label>
     </li>
     <li>
-        <input type="number" placeholder="Entrez le nombre de siège de votre voiture" name="nbSieges" value="<?=htmlspecialchars($voiture->getNbSieges())?>" required/>
+        <input type="number" name="nbSieges" value="<?=$_POST["nbSieges"] ?? htmlspecialchars($voiture->getNbSieges())?>" placeholder="Entrez le nombre de siège de votre voiture" required/>
         <label>Nombre de sièges</label>
     </li>
     <li>

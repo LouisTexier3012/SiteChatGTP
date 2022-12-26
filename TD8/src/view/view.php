@@ -4,7 +4,6 @@
  * @var FlashMessage $message
  */
 
-use App\Covoiturage\Lib\FlashMessageManager;
 use App\Covoiturage\Lib\FlashMessage;
 
 ?>
@@ -26,7 +25,7 @@ use App\Covoiturage\Lib\FlashMessage;
                     <li><a href="frontController.php?action=formulairePreference"><img src="../assets/svg/heart.svg" alt="heart"></a></li>
                 </ul>
             </nav>
-			<?php foreach (FlashMessageManager::read() as $message) echo "<div class=\"alert alert-$message->type\">$message->message</div>\n"?>
+			<?php foreach (FlashMessage::read() as $message) echo "<div class=\"alert alert-$message->type\">$message->message</div>\n"?>
 		</header>
         <main>
             <?php require __DIR__ . "/{$cheminVueBody}"?>

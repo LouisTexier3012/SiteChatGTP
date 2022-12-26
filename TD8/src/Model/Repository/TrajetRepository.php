@@ -19,7 +19,7 @@ class TrajetRepository extends AbstractRepository
 
     public function getNomsColonnes(): array
     {
-        return ['id', 'depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
+        return ['depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
     }
 	
 	public function construire(array $utilisateurArray): AbstractDataObject

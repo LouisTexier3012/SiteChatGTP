@@ -2,9 +2,7 @@
 
 namespace App\Covoiturage\Controller;
 
-//use App\Faireply\Lib\PreferenceController;
-
-use App\Covoiturage\Lib\FlashMessageManager;
+use App\Covoiturage\Lib\FlashMessage;
 use App\Covoiturage\Lib\FlashType;
 use App\Covoiturage\Lib\MotDePasse;
 use App\Covoiturage\Lib\PreferenceController;
@@ -57,7 +55,7 @@ class GenericController
 		
 		foreach ($columns as $column)
 		{
-			if (isset($_GET[$column])) $objectArray[$column] = $_GET[$column];
+			if (isset($_POST[$column])) $objectArray[$column] = $_POST[$column];
 		}
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
@@ -112,11 +110,11 @@ class GenericController
 	{
 		$repository = $this->getRepository();
 		$columns = $repository->getNomsColonnes();
-		$objectName = $repository->getNomTable();
 		
 		foreach ($columns as $column)
 		{
-			if (isset($_GET[$column])) $objectArray[$column] = $_GET[$column];
+            echo 'isset($_POST['.$column.']) = ' . $_POST[$column];
+			if (isset($_POST[$column])) $objectArray[$column] = $_POST[$column];
 		}
 		$object = $repository->construire($objectArray);
 		$repository->update($object);
@@ -133,8 +131,8 @@ class GenericController
 		$objectName = $repository->getNomTable();
 		$repository->delete(strtolower($_GET[$repository->getNomClePrimaire()]));
 		
-		if	($repository->isFeminine())	FlashMessageManager::add(ucfirst($objectName) . " supprimée avec succès", FlashType::SUCCESS);
-		else							FlashMessageManager::add(ucfirst($objectName) . " supprimé avec succès", FlashType::SUCCESS);
+		if	($repository->isFeminine())	FlashMessage::add(ucfirst($objectName) . " supprimée avec succès", FlashType::SUCCESS);
+		else							FlashMessage::add(ucfirst($objectName) . " supprimé avec succès", FlashType::SUCCESS);
 		
 		header("Location: frontController.php");
 	}
@@ -147,10 +145,8 @@ class GenericController
 	
 	public function enregistrerPreference() : void
 	{
-		PreferenceController::enregistrer(ucfirst(strtolower($_GET["controller"])));
-		
-		self::afficheVue("../view/view.php", ["pagetitle" =>  "Préférences enregistrées",
-														"cheminVueBody" => "enregistrerPreference.php",
-														"controller" => ucfirst(strtolower($_GET["controller"]))]);
+		PreferenceController::enregistrer(ucfirst(strtolower($_POST["controller"])));
+        FlashMessage::add("Préférence du controller eregistrée !", FlashType::SUCCESS);
+        header("Location: frontController.php");
 	}
 }

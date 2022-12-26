@@ -4,19 +4,18 @@ use App\Covoiturage\Lib\PreferenceController;
 
 ?>
 
-<form method="GET" action='frontController.php'>
+<form method="POST" action='frontController.php?action=enregistrerPreference'>
     <legend>Créer un nouvel utilisateur</legend>
-    <input type="hidden" name="action" value="enregistrerPreference">
     <li>
-        <input type="radio" name="controller" value="voiture"<?php if (PreferenceController::lire() == "Voiture") echo " checked"?>>
+        <input type="radio" name="controller" value="voiture"<?php if (PreferenceController::existe() && PreferenceController::lire() == "Voiture") echo " checked"?>>
         <label>Voiture</label>
     </li>
     <li>
-        <input type="radio" name="controller" value="utilisateur"<?php if (PreferenceController::lire() == "Utilisateur") echo " checked"?>>
+        <input type="radio" name="controller" value="utilisateur"<?php if (PreferenceController::existe() && PreferenceController::lire() == "Utilisateur") echo " checked"?>>
         <label>Utilisateur</label>
     </li>
     <li>
-        <input type="radio" name="controller" value="trajet"<?php if (PreferenceController::lire() == "Trajet") echo " checked"?>>
+        <input type="radio" name="controller" value="trajet"<?php if (PreferenceController::existe() && PreferenceController::lire() == "Trajet") echo " checked"?>>
         <label>Trajet</label>
     </li>
     <li>

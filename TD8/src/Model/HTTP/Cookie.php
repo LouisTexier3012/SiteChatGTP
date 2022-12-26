@@ -7,7 +7,7 @@ class Cookie
 	public static function enregistrer(string $cle, string $valeur, ?int $dureeExpiration = null)
 	{
 		if (is_null($dureeExpiration))	setcookie($cle, serialize($valeur));
-		else							setcozokie($cle, serialize($valeur), $dureeExpiration);
+		else							setcookie($cle, serialize($valeur), $dureeExpiration);
 	}
 
 	public static function lire(string $cle) : ?string

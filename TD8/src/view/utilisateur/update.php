@@ -1,19 +1,17 @@
 <?php /* @var App\Covoiturage\Model\DataObject\Utilisateur $utilisateur*/?>
 
-<form method="GET" action='frontController.php'>
+<form method="POST" action='frontController.php?controller=utilisateur&action=updated'>
         <legend>Modifiez votre profil</legend>
-        <input type='hidden' name='action' value='updated'>
-        <input type='hidden' name='controller' value='utilisateur'>
         <li>
-            <input type="text" name="login" value="<?=htmlspecialchars($utilisateur->getLogin())?>" readonly/>
+            <input type="text" name="login" value="<?=$_POST["login"] ?? htmlspecialchars($utilisateur->getLogin())?>" readonly/>
             <label>Login</label>
         </li>
         <li>
-            <input type="text" name="prenom" value="<?=htmlspecialchars($utilisateur->getPrenom())?>" required/>
+            <input type="text" name="prenom" value="<?=$_POST["prenom"] ?? htmlspecialchars($utilisateur->getPrenom())?>" required/>
             <label>Prénom</label>
         </li>
         <li>
-            <input type="text" name="nom" value="<?=htmlspecialchars($utilisateur->getNom())?>" required/>
+            <input type="text" name="nom" value="<?=$_POST["nom"] ?? htmlspecialchars($utilisateur->getNom())?>" required/>
             <label>Nom</label>
         </li>
         <li>

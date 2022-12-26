@@ -1,7 +1,5 @@
-<form method="GET" action='frontController.php'>
+<form method="POST" action='frontController.php?controller=trajet&action=created'>
     <legend>Ajoutez un trajet</legend>
-    <input type='hidden' name='action' value='created'>
-    <input type='hidden' name='controller' value='trajet'>
     <li>
         <input type="text" placeholder="Entrez le lieu de départ" name="depart" required/>
         <label>Lieu de départ</label>

@@ -4,11 +4,8 @@ use App\Covoiturage\Model\DataObject\Trajet;
 /* @var Trajet $trajet*/;
 ?>
 
-<form method="GET" action='frontController.php'>
+<form method="POST" action='frontController.php?controller=trajet&action=updated&id<?=htmlspecialchars($trajet->getId())?>'>
     <legend>Modifier un trajet</legend>
-    <input type='hidden' name='action' value='updated'>
-    <input type='hidden' name='controller' value='trajet'>
-    <input type='hidden' name='id' value='<?=htmlspecialchars($trajet->getId())?>'>
     <li>
         <input type="text" placeholder="Entrez le lieu de départ" name="depart" id="depart" value="<?=htmlspecialchars($trajet->getDepart())?>" required/>
         <label>Lieu de départ</label>

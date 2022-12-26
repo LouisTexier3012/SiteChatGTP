@@ -36,6 +36,7 @@ abstract class AbstractRepository
                                                                     ' WHERE ' . $this->getNomClePrimaire() . ' = :' . $this->getNomClePrimaire());
 
         $values = array($this->getNomClePrimaire() => $valeurClePrimaire);
+
         $pdoStatement->execute($values);
         $object = $pdoStatement->fetch(); //fetch() renvoie false si pas de object correspondant
 
@@ -47,7 +48,17 @@ abstract class AbstractRepository
     {
         $firstColumnSet = false;
 
-        $sql = 'INSERT INTO ' . $this->getNomTable() . ' VALUES (';
+        $sql = 'INSERT INTO ' . $this->getNomTable() . '(';
+        foreach ($this->getNomsColonnes() as $column) {
+
+            if (!$firstColumnSet) {
+
+                $sql .= $column;
+                $firstColumnSet = true;
+            } else $sql .= ', ' . $column;
+        }
+        $firstColumnSet = false;
+        $sql .= ') VALUES (';
         foreach ($this->getNomsColonnes() as $column) {
 
             if (!$firstColumnSet) {
@@ -57,9 +68,13 @@ abstract class AbstractRepository
             } else $sql .= ', :' . $column;
         }
         $sql .= ')';
+
+        var_dump($sql);
 				
         $pdo = DatabaseConnection::getPdo()->prepare($sql);
         $pdo->execute($object->formatTableau());
+
+
     }
 
     public function update(AbstractDataObject $object): void
@@ -90,20 +105,4 @@ abstract class AbstractRepository
         $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
         $pdoStatement->execute(array("valeurClePrimaire" => $valeurClePrimaire));
     }
-	
-	public function test() : void
-	{
-		
-		
-		
-		$mdpClair = "saucisse";
-		
-		$mdpHache = MotDePasse::hacher($mdpClair);
-		
-		$correct = MotDePasse::verifier($mdpClair, $mdpHache);
-		
-		var_dump($mdpClair);
-		var_dump($mdpHache);
-		var_dump($correct);
-	}
 }
