@@ -4,8 +4,10 @@
  * @var FlashMessage $message
  */
 
+use App\Covoiturage\Lib\ConnexionUtilisateur;
 use App\Covoiturage\Lib\FlashMessage;
 
+$login = ConnexionUtilisateur::getLoginUtilisateurConnecte();
 ?>
 
 <!DOCTYPE html>
@@ -23,6 +25,16 @@ use App\Covoiturage\Lib\FlashMessage;
                     <li><a href="frontController.php?controller=utilisateur&action=readAll"><p>Utilisateurs</p></a></li>
                     <li><a href="frontController.php?controller=trajet&action=readAll"><p>Trajets</p></a></li>
                     <li><a href="frontController.php?action=formulairePreference"><img src="../assets/svg/heart.svg" alt="heart"></a></li>
+                    <?php if (!ConnexionUtilisateur::estConnecte())
+                        {
+                            echo '<li><a href="frontController.php?controller=utilisateur&action=connexion"><p>Connection</p></a></li>';
+							echo '<li><a href="frontController.php?controller=utilisateur&action=create"><p>Inscription</p></a></li>';
+						}
+                        else
+                        {
+							echo "<li><a href=\"frontController.php?controller=utilisateur&action=read&login=$login\"><p>Profil</p></a></li>";
+                            echo '<li><a href="frontController.php?controller=utilisateur&action=deconnecter"><p>Déconnection</p></a></li>';
+                        }?>
                 </ul>
             </nav>
 			<?php foreach (FlashMessage::read() as $message) echo "<div class=\"alert alert-$message->type\">$message->message</div>\n"?>

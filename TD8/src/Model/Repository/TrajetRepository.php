@@ -21,16 +21,16 @@ class TrajetRepository extends AbstractRepository
         return ['id', 'depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
     }
 	
-	public function construire(array $trajetArray) : Trajet
+	public function construire(array $utilisateurArray) : Trajet
     {
-		if (isset($trajetArray['id']))	$id = $trajetArray['id'];
+		if (isset($utilisateurArray['id']))	$id = $utilisateurArray['id'];
 		else								$id = null;
-        $depart = $trajetArray['depart'];
-        $arrivee = $trajetArray['arrivee'];
-        $date = $trajetArray['date'];
-        $nbPlaces = $trajetArray['nbPlaces'];
-        $prix = $trajetArray['prix'];
-        $conducteurLogin = $trajetArray['conducteurLogin'];
+        $depart = $utilisateurArray['depart'];
+        $arrivee = $utilisateurArray['arrivee'];
+        $date = $utilisateurArray['date'];
+        $nbPlaces = $utilisateurArray['nbPlaces'];
+        $prix = $utilisateurArray['prix'];
+        $conducteurLogin = $utilisateurArray['conducteurLogin'];
 
         return new Trajet($id, $depart, $arrivee, $date, $nbPlaces, $prix, $conducteurLogin);
     }

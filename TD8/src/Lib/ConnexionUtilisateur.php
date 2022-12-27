@@ -7,25 +7,30 @@ use App\Covoiturage\Model\HTTP\Session;
 class ConnexionUtilisateur
 {
 	// L'utilisateur connecté sera enregistré en session associé à la clé suivante
-	private static string $cleConnexion = "_utilisateurConnecte";
+	private static string $key = "userConnexion";
 	
 	public static function connecter(string $loginUtilisateur): void
 	{
-		//Session::enreg
+		Session::getInstance()->enregistrer(self::$key, $loginUtilisateur);
 	}
 	
 	public static function estConnecte(): bool
 	{
-		// À compléter
+		return Session::getInstance()->contains(self::$key) ? true : false;
 	}
 	
 	public static function deconnecter(): void
 	{
-		// À compléter
+		Session::getInstance()->delete(self::$key);
 	}
 	
 	public static function getLoginUtilisateurConnecte(): ?string
 	{
-		// À compléter
+		return Session::getInstance()->read(self::$key);
+	}
+	
+	public static function estUtilisateur($login) : bool
+	{
+		return self::getLoginUtilisateurConnecte() == $login;
 	}
 }

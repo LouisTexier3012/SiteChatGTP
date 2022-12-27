@@ -14,10 +14,7 @@ class GenericController
 		extract($parametres);
 		require __DIR__ . "/../view/$cheminVue";
 	}
-
-	/**
-	* @noinspection PhpUnused
-	*/
+	
 	public function readAll() : void
 	{
 		$objects = $this->getRepository()->selectAll();
@@ -27,10 +24,7 @@ class GenericController
 														"cheminVueBody" => "$objectName/list.php",
 														"$objectName" . "s" => $objects]);
 	}
-
-	/**
-	 * @noinspection PhpUnused
-	 */
+	
 	public function create() : void {
 
 		$repository = $this->getRepository();
@@ -43,10 +37,7 @@ class GenericController
 		self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
 														"cheminVueBody" => "$objectName/create.php"]);
 	}
-
-	/**
-	 * @noinspection PhpUnused
-	 */
+	
 	public function created(): void
 	{
 		$repository = $this->getRepository();
@@ -55,17 +46,16 @@ class GenericController
 		
 		foreach ($columns as $column)
 		{
-			if (isset($_POST[$column])) $objectArray[$column] = $_POST[$column];
+			//if (isset($_POST[$column]))
+			$objectArray[$column] = $_POST[$column];
+			echo $column;
 		}
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
 		
 		header("Location: frontController.php");
 	}
-
-	/**
-	 * @noinspection PhpUnused
-	 */
+	
 	public function read() : void
 	{
 		$repository = $this->getRepository();
@@ -84,10 +74,7 @@ class GenericController
 		}
 		else $this->error("Cette page n'existe pas");
 	}
-
-	/**
-	 * @noinspection PhpUnused
-	 */
+	
 	public function update(): void
 	{
 		$repository = $this->getRepository();
@@ -102,10 +89,7 @@ class GenericController
 														"cheminVueBody" => "$objectName/update.php",
 														"$objectName" => isset($_GET["$primaryKey"]) ? $repository->select(strtolower($_GET["$primaryKey"])) : $repository->select(strtolower($_POST["$primaryKey"]))]);
 	}
-
-	/**
-	 * @noinspection PhpUnused
-	 */
+	
 	public function updated(): void
 	{
 		$repository = $this->getRepository();
@@ -113,17 +97,15 @@ class GenericController
 		
 		foreach ($columns as $column)
 		{
-			if (isset($_POST[$column])) $objectArray[$column] = $_POST[$column];
+			//if (isset($_POST[$column]))
+			$objectArray[$column] = $_POST[$column];
 		}
 		$object = $repository->construire($objectArray);
 		$repository->update($object);
 		
 		header("Location: frontController.php");
 	}
-
-	/**
-	 * @noinspection PhpUnused
-	 */
+	
 	public function delete() : void
 	{
 		$repository = $this->getRepository();

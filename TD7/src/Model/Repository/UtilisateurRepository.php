@@ -16,11 +16,11 @@ class UtilisateurRepository extends AbstractRepository
         return 'login';
     }
 	
-	public function construire(array $trajetArray) : Utilisateur
+	public function construire(array $utilisateurArray) : Utilisateur
     {
-        $login = $trajetArray['login'];
-        $nom = $trajetArray['nom'];
-        $prenom = $trajetArray['prenom'];
+        $login = $utilisateurArray['login'];
+        $nom = $utilisateurArray['nom'];
+        $prenom = $utilisateurArray['prenom'];
 
         return new Utilisateur($login, $nom, $prenom);
     }
