@@ -2,7 +2,6 @@
 
 namespace App\Covoiturage\Model\Repository;
 
-use App\Covoiturage\Model\DataObject\AbstractDataObject;
 use App\Covoiturage\Model\DataObject\Trajet;
 
 class TrajetRepository extends AbstractRepository
@@ -19,19 +18,19 @@ class TrajetRepository extends AbstractRepository
 
     public function getNomsColonnes(): array
     {
-        return ['depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
+        return ['id', 'depart', 'arrivee', 'date', 'nbPlaces', 'prix', 'conducteurLogin'];
     }
 	
-	public function construire(array $utilisateurArray): AbstractDataObject
+	public function construire(array $trajetArray) : Trajet
     {
-		if (isset($utilisateurArray['id'])) $id = $utilisateurArray['id'];
-		else                           $id = null;
-        $depart = $utilisateurArray['depart'];
-        $arrivee = $utilisateurArray['arrivee'];
-        $date = $utilisateurArray['date'];
-        $nbPlaces = $utilisateurArray['nbPlaces'];
-        $prix = $utilisateurArray['prix'];
-        $conducteurLogin = $utilisateurArray['conducteurLogin'];
+		if (isset($trajetArray['id']))	$id = $trajetArray['id'];
+		else								$id = null;
+        $depart = $trajetArray['depart'];
+        $arrivee = $trajetArray['arrivee'];
+        $date = $trajetArray['date'];
+        $nbPlaces = $trajetArray['nbPlaces'];
+        $prix = $trajetArray['prix'];
+        $conducteurLogin = $trajetArray['conducteurLogin'];
 
         return new Trajet($id, $depart, $arrivee, $date, $nbPlaces, $prix, $conducteurLogin);
     }

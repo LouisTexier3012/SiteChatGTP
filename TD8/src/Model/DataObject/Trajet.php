@@ -14,7 +14,7 @@ class Trajet extends AbstractDataObject {
 
     public function __construct(?int $id, string $depart, string $arrivee, string $date, int $nbPlaces, int $prix, string $conducteurLogin)
     {
-				$this->id = $id;
+		$this->id = $id;
         $this->depart = $depart;
         $this->arrivee = $arrivee;
         $this->date = $date;
@@ -61,7 +61,7 @@ class Trajet extends AbstractDataObject {
     public function formatTableau(): array
     {
         return array("id" => $this->id,
-										 "depart" => $this->depart,
+					 "depart" => $this->depart,
                      "arrivee" => $this->arrivee,
                      "date" => $this->date,
                      "nbPlaces" => $this->nbPlaces,

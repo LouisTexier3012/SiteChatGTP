@@ -1,34 +1,31 @@
-<?php
-use App\Covoiturage\Model\DataObject\Trajet;
+<?php /* @var App\Covoiturage\Model\DataObject\Trajet $trajet*/?>
 
-/* @var Trajet $trajet*/;
-?>
-
-<form method="POST" action='frontController.php?controller=trajet&action=updated&id<?=htmlspecialchars($trajet->getId())?>'>
+<form method="POST" action='frontController.php?controller=trajet&action=updated'>
     <legend>Modifier un trajet</legend>
+    <input type="hidden" name="id" value="<?=$trajet->getId()?>"/>
     <li>
-        <input type="text" placeholder="Entrez le lieu de départ" name="depart" id="depart" value="<?=htmlspecialchars($trajet->getDepart())?>" required/>
+        <input type="text" name="depart" value="<?=$_POST["depart"] ?? htmlspecialchars($trajet->getDepart())?>" pattern=".+" placeholder="Entrez le lieu de départ"/>
         <label>Lieu de départ</label>
     </li>
     <li>
-        <input type="text" placeholder="Entrez le lieu d'arrivée" name="arrivee" id="arrivee" value="<?=htmlspecialchars($trajet->getArrivee())?>" required/>
+        <input type="text" name="arrivee" value="<?=$_POST["arrivee"] ?? htmlspecialchars($trajet->getArrivee())?>" pattern=".+" placeholder="Entrez le lieu d'arrivée"/>
         <label>Lieu d'arrivée</label>
     </li>
     <li>
-        <input type="date" placeholder="Entrez la date du trajet" name="date" id="date" value="<?=htmlspecialchars($trajet->getDate())?>" required/>
+        <input type="date" name="date" value="<?=$_POST["date"] ?? htmlspecialchars($trajet->getDate())?>" min="<?=date("Y-m-d")?>" placeholder="Entrez la date du trajet"/>
         <label>Date du trajet</label>
     </li>
     <li>
-        <input type="number" placeholder="Entrez le nombre de place" name="nbPlaces" id="nbPlaces" value="<?=htmlspecialchars($trajet->getNbPlaces())?>" required/>
+        <input type="number" name="nbPlaces" value="<?=$_POST["nbPlaces"] ?? htmlspecialchars($trajet->getNbPlaces())?>" min="1" max="50" placeholder="Entrez le nombre de place"/>
         <label>Nombre de places</label>
     </li>
     <li>
-        <input type="number" placeholder="Entrez le prix du trajet" name="prix" id="prix" value="<?=htmlspecialchars($trajet->getPrix())?>" required/>
+        <input type="number" name="prix" value="<?=$_POST["prix"] ?? htmlspecialchars($trajet->getPrix())?>" min="1" max="1000" placeholder="Entrez le prix du trajet"/>
         <label>Prix du trajet</label>
     </li>
     <li>
-        <input type="text" placeholder="Entrez le login du conducteur" name="conducteurLogin" id="conducteurLogin" value="<?=htmlspecialchars($trajet->getConducteurLogin())?>" required/>
-        <label>Login du conducteur</label>
+        <input type="text" name="conducteurLogin" value="<?=$_POST["conducteurLogin"] ?? htmlspecialchars($trajet->getConducteurLogin())?>" placeholder="Entrez le nom d'utilisateur du conducteur"/>
+        <label>Nom d'utilisateur du conducteur</label>
     </li>
     <li>
         <input type="submit" value="Envoyer"/>

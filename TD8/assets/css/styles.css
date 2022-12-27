@@ -66,33 +66,33 @@ nav ul li a {
 
 .alert {
     padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    margin-bottom: 5px;
+    border: 1px solid;
+    border-radius: 8px;
 }
 
 .alert-success {
     color: #3c763d;
     background-color: #dff0d8;
-    border-color: #d6e9c6;
+    border-color: #3c763d;
 }
 
 .alert-info {
     color: #31708f;
     background-color: #d9edf7;
-    border-color: #bce8f1;
+    border-color: #31708f;
 }
 
 .alert-warning {
     color: #8a6d3b;
     background-color: #fcf8e3;
-    border-color: #faebcc;
+    border-color: #8a6d3b;
 }
 
 .alert-danger {
     color: #a94442;
     background-color: #f2dede;
-    border-color: #ebccd1;
+    border-color: #a94442;
 }
 
 body {
@@ -193,13 +193,18 @@ form li input[type=radio] ~ label {
 }
 
 form input:focus:not([type=radio]) ~ label,
-form input:valid:not([type=radio]) ~ label,
+form input:valid:not(:placeholder-shown):not([type=radio]) ~ label,
 form input:read-only:not([type=radio]) ~ label,
+form input:not(:placeholder-shown):not([type=radio]) ~ label,
 form input[type=date] ~ label {
     top: -20px;
     left: 0;
     color: #10bc88;
     font-size: 12px;
+}
+
+form input:invalid:not(:placeholder-shown):not(:focus):invalid ~ label {
+    color: #a94442;
 }
 
 form input:checked ~ label {

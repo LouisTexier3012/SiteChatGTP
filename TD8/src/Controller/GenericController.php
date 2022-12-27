@@ -100,7 +100,7 @@ class GenericController
 	
 		self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
 														"cheminVueBody" => "$objectName/update.php",
-														"$objectName" => $repository->select(strtolower($_GET["$primaryKey"]))]);
+														"$objectName" => isset($_GET["$primaryKey"]) ? $repository->select(strtolower($_GET["$primaryKey"])) : $repository->select(strtolower($_POST["$primaryKey"]))]);
 	}
 
 	/**
@@ -113,7 +113,6 @@ class GenericController
 		
 		foreach ($columns as $column)
 		{
-            echo 'isset($_POST['.$column.']) = ' . $_POST[$column];
 			if (isset($_POST[$column])) $objectArray[$column] = $_POST[$column];
 		}
 		$object = $repository->construire($objectArray);
@@ -146,7 +145,7 @@ class GenericController
 	public function enregistrerPreference() : void
 	{
 		PreferenceController::enregistrer(ucfirst(strtolower($_POST["controller"])));
-        FlashMessage::add("Préférence du controller eregistrée !", FlashType::SUCCESS);
+        FlashMessage::add("Préférence du controller enregistrée avec succès !", FlashType::SUCCESS);
         header("Location: frontController.php");
 	}
 }

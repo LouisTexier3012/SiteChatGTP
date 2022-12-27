@@ -12,7 +12,7 @@ abstract class AbstractRepository
 	
 	public abstract function getNomsColonnes() : array;
 	
-	protected abstract function construire(array $utilisateurArray) : AbstractDataObject;
+	protected abstract function construire(array $trajetArray) : AbstractDataObject;
 	
 	public abstract function isFirstLetterVowel() : bool;
 	
@@ -20,52 +20,46 @@ abstract class AbstractRepository
 	
     public function selectAll(): array
     {
-        $objects = [];
-        $pdoStatement = DatabaseConnection::getPdo()->query('SELECT * FROM ' . $this->getNomTable());
+        $pdo = DatabaseConnection::getPdo()->query('SELECT * FROM ' . $this->getNomTable());
 
-        foreach ($pdoStatement as $object)
+        foreach ($pdo as $object)
         {
             $objects[] = $this->construire($object);
         }
-        return $objects;
+        return $objects ?? [];
     }
 
     public function select($valeurClePrimaire): ?AbstractDataObject
     {
-        $pdoStatement = DatabaseConnection::getPdo()->prepare('SELECT * FROM ' . $this->getNomTable() .
+        $pdo = DatabaseConnection::getPdo()->prepare('SELECT * FROM ' . $this->getNomTable() .
                                                                     ' WHERE ' . $this->getNomClePrimaire() . ' = :' . $this->getNomClePrimaire());
 
         $values = array($this->getNomClePrimaire() => $valeurClePrimaire);
 
-        $pdoStatement->execute($values);
-        $object = $pdoStatement->fetch(); //fetch() renvoie false si pas de object correspondant
+        $pdo->execute($values);
+        $object = $pdo->fetch(); //fetch() renvoie false si pas de object correspondant
 
         if ($object != false) return static::construire($object);
-        else                   return null;
+        else				  return null;
     }
 
     public function create(AbstractDataObject $object)
     {
-        $firstColumnSet = false;
-
         $sql = 'INSERT INTO ' . $this->getNomTable() . '(';
+	
+		$firstColumnSet = false;
+        foreach ($this->getNomsColonnes() as $column) {
+		
+			!$firstColumnSet ? $sql .= $column : $sql .= ', ' . $column;
+			$firstColumnSet = true;
+		}
+		$sql .= ') VALUES (';
+  
+		$firstColumnSet = false;
         foreach ($this->getNomsColonnes() as $column) {
 
-            if (!$firstColumnSet) {
-
-                $sql .= $column;
-                $firstColumnSet = true;
-            } else $sql .= ', ' . $column;
-        }
-        $firstColumnSet = false;
-        $sql .= ') VALUES (';
-        foreach ($this->getNomsColonnes() as $column) {
-
-            if (!$firstColumnSet) {
-
-                $sql .= ':' . $column;
-                $firstColumnSet = true;
-            } else $sql .= ', :' . $column;
+            !$firstColumnSet ? $sql .= ':' . $column : $sql .= ', :' . $column;
+            $firstColumnSet = true;
         }
         $sql .= ')';
 
@@ -73,26 +67,20 @@ abstract class AbstractRepository
 				
         $pdo = DatabaseConnection::getPdo()->prepare($sql);
         $pdo->execute($object->formatTableau());
-
-
     }
 
     public function update(AbstractDataObject $object): void
     {
-        $firstColumnSet = false;
-
         $sql = 'UPDATE ' . $this->getNomTable() . ' SET ';
-        foreach ($this->getNomsColonnes() as $column)
-        {
-            if (!$firstColumnSet)
-            {
-                $sql .= $column . ' = :' . $column;
-                $firstColumnSet = true;
-            }
-            else $sql .= ', ' . $column . ' = :' . $column;
-        }
-        $sql .= ' WHERE ' . $this->getNomClePrimaire() . ' = :' . $this->getNomClePrimaire();
-
+	
+		$firstColumnSet = false;
+		foreach ($this->getNomsColonnes() as $column) {
+		
+			!$firstColumnSet ? $sql .= $column . ' = :' . $column : $sql .= ', ' . $column . ' = :' . $column;
+			$firstColumnSet = true;
+		}
+		$sql .= ' WHERE ' . $this->getNomClePrimaire() . ' = :' . $this->getNomClePrimaire();
+		
         $pdo = DatabaseConnection::getPdo()->prepare($sql);
         $pdo->execute($object->formatTableau());
     }
@@ -102,7 +90,7 @@ abstract class AbstractRepository
 		$sql = 'DELETE FROM ' . $this->getNomTable() .
 				' WHERE ' . $this->getNomClePrimaire() . '=:valeurClePrimaire';
 
-        $pdoStatement = DatabaseConnection::getPdo()->prepare($sql);
-        $pdoStatement->execute(array("valeurClePrimaire" => $valeurClePrimaire));
+        $pdo = DatabaseConnection::getPdo()->prepare($sql);
+        $pdo->execute(array("valeurClePrimaire" => $valeurClePrimaire));
     }
 }
