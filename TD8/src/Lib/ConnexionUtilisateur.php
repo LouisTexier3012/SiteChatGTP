@@ -3,6 +3,7 @@
 namespace App\Covoiturage\Lib;
 
 use App\Covoiturage\Model\HTTP\Session;
+use App\Covoiturage\Model\Repository\UtilisateurRepository;
 
 class ConnexionUtilisateur
 {
@@ -32,5 +33,10 @@ class ConnexionUtilisateur
 	public static function estUtilisateur($login) : bool
 	{
 		return self::getLoginUtilisateurConnecte() == $login;
+	}
+	
+	public static function estAdministrateur() : bool
+	{
+		return self::estConnecte() && (new UtilisateurRepository)->select(self::getLoginUtilisateurConnecte())->isAdmin() == 1;
 	}
 }

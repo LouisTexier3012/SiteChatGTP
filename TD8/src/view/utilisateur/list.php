@@ -9,7 +9,7 @@ foreach ($utilisateurs as $utilisateur) {
 	$prenom = htmlspecialchars($utilisateur->getPrenom());
 	$nom = htmlspecialchars($utilisateur->getNom());
 
-	if (ConnexionUtilisateur::estUtilisateur($login))
+	if (ConnexionUtilisateur::estUtilisateur($login) || ConnexionUtilisateur::estAdministrateur())
 	{
 		echo "
 		<li>

@@ -1,8 +1,4 @@
 <?php
-/* @var String $pagetitle
- * @var String $cheminVueBody
- * @var FlashMessage $message
- */
 
 use App\Covoiturage\Lib\ConnexionUtilisateur;
 use App\Covoiturage\Lib\FlashMessage;
@@ -40,7 +36,7 @@ $login = ConnexionUtilisateur::getLoginUtilisateurConnecte();
 			<?php foreach (FlashMessage::read() as $message) echo "<div class=\"alert alert-$message->type\">$message->message</div>\n"?>
 		</header>
         <main>
-            <?php require __DIR__ . "/{$cheminVueBody}"?>
+            <?php require __DIR__ . "/$path"?>
         </main>
         <footer>
             <p>Site de covoiturage de moi-même</p>

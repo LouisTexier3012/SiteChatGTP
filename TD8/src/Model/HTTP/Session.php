@@ -40,7 +40,7 @@ class Session
 		return static::getInstance()->contains($name) ? $_SESSION[$name] : null;
 	}
 	
-	public function delete($name): void
+	public function delete($name) : void
 	{
 		unset($_SESSION[$name]);
 	}

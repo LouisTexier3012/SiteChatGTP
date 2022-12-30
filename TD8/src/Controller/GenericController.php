@@ -6,6 +6,7 @@ use App\Covoiturage\Lib\FlashMessage;
 use App\Covoiturage\Lib\FlashType;
 use App\Covoiturage\Lib\MotDePasse;
 use App\Covoiturage\Lib\PreferenceController;
+use App\Covoiturage\Lib\Token;
 
 class GenericController
 {
@@ -21,12 +22,13 @@ class GenericController
 		$objectName = $this->getRepository()->getNomTable();
 
 		self::afficheVue('../view/view.php', ["pagetitle" => "Liste des $objectName" . "s",
-														"cheminVueBody" => "$objectName/list.php",
+														"path" => "$objectName/list.php",
 														"$objectName" . "s" => $objects]);
 	}
 	
 	public function create() : void {
 
+		$_POST["token"] = Token::getToken();
 		$repository = $this->getRepository();
 		$objectName = $repository->getNomTable();
 	
@@ -35,7 +37,7 @@ class GenericController
 		else										$pagetitle = "Ajouter un nouveau $objectName";
 	
 		self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
-														"cheminVueBody" => "$objectName/create.php"]);
+														"path" => "$objectName/create.php"]);
 	}
 	
 	public function created(): void
@@ -44,16 +46,10 @@ class GenericController
 		$columns = $repository->getNomsColonnes();
 		$objectName = $repository->getNomTable();
 		
-		foreach ($columns as $column)
-		{
-			//if (isset($_POST[$column]))
-			$objectArray[$column] = $_POST[$column];
-			echo $column;
-		}
+		foreach ($columns as $column) $objectArray[$column] = $_POST[$column];
+		
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
-		
-		header("Location: frontController.php");
 	}
 	
 	public function read() : void
@@ -69,7 +65,7 @@ class GenericController
 		if (!is_null($object))
 		{
 			self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
-															"cheminVueBody" => "$objectName/detail.php",
+															"path" => "$objectName/detail.php",
 															"$objectName" => $object]);
 		}
 		else $this->error("Cette page n'existe pas");
@@ -80,13 +76,14 @@ class GenericController
 		$repository = $this->getRepository();
 		$objectName = $repository->getNomTable();
 		$primaryKey = $repository->getNomClePrimaire();
+		//$id = $_GET["$primaryKey"];
 	
 		if		($repository->isFirstLetterVowel())	$pagetitle = "Modification de l'$objectName";
 		elseif	($repository->isFeminine())			$pagetitle = "Modification de la $objectName";
 		else										$pagetitle = "Modification du $objectName";
 	
 		self::afficheVue('../view/view.php', ["pagetitle" => "$pagetitle",
-														"cheminVueBody" => "$objectName/update.php",
+														"path" => "$objectName/update.php",
 														"$objectName" => isset($_GET["$primaryKey"]) ? $repository->select(strtolower($_GET["$primaryKey"])) : $repository->select(strtolower($_POST["$primaryKey"]))]);
 	}
 	
@@ -95,15 +92,10 @@ class GenericController
 		$repository = $this->getRepository();
 		$columns = $repository->getNomsColonnes();
 		
-		foreach ($columns as $column)
-		{
-			//if (isset($_POST[$column]))
-			$objectArray[$column] = $_POST[$column];
-		}
+		foreach ($columns as $column) $objectArray[$column] = $_POST[$column];
+		
 		$object = $repository->construire($objectArray);
 		$repository->update($object);
-		
-		header("Location: frontController.php");
 	}
 	
 	public function delete() : void
@@ -121,7 +113,7 @@ class GenericController
 	public function formulairePreference() : void
 	{
 		self::afficheVue("../view/view.php", ["pagetitle" => "Formulaire de préférence",
-														"cheminVueBody" => "formulairePreference.php"]);
+														"path" => "formulairePreference.php"]);
 	}
 	
 	public function enregistrerPreference() : void

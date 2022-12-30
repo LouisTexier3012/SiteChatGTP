@@ -9,28 +9,31 @@ class UtilisateurRepository extends AbstractRepository
 {
     public function getNomTable() : string
     {
-        return 'utilisateur';
+        return "utilisateur";
     }
 	
 	public function getNomClePrimaire() : string
     {
-        return 'login';
+        return "login";
     }
 	
 	public function construire(array $utilisateurArray) : Utilisateur
     {
-        $login = $utilisateurArray['login'];
-        $nom = $utilisateurArray['nom'];
-        $prenom = $utilisateurArray['prenom'];
-		$password = $utilisateurArray['password'];
-		$admin = $utilisateurArray['admin'];
+        $login = $utilisateurArray["login"];
+		$unchecked = $utilisateurArray["unchecked"];
+		$email = $utilisateurArray["email"];
+		$nonce = $utilisateurArray["nonce"];
+        $nom = $utilisateurArray["nom"];
+        $prenom = $utilisateurArray["prenom"];
+		$password = $utilisateurArray["password"];
+		$admin = $utilisateurArray["admin"];
 
-        return new Utilisateur($login, $nom, $prenom, $password, $admin);
+        return new Utilisateur($login, $unchecked, $email, $nonce, $nom, $prenom, $password, $admin);
     }
 	
 	public function getNomsColonnes() : array
     {
-        return ['login', 'nom', 'prenom', 'password', 'admin'];
+        return ["login", "unchecked", "email", "nonce", "nom", "prenom", "password", "admin"];
     }
 	
 	public function isFirstLetterVowel() : bool
