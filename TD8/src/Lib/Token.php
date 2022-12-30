@@ -16,9 +16,9 @@ class Token
 	
 	public static function isValid(string $token) : bool
 	{
-		$valid = (Session::getInstance()->read("token") == $token);
+		$result = (Session::getInstance()->read("token") == $token);
 		Session::getInstance()->delete("token");
-		return $valid;
+		return $result;
 	}
 	
 	public static function isTimeout() : bool
