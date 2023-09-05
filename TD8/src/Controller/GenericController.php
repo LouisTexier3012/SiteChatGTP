@@ -50,6 +50,7 @@ class GenericController
 		
 		$object = $repository->construire($objectArray);
 		$repository->create($object);
+        header("Location: frontController.php");
 	}
 	
 	public function read() : void
@@ -96,6 +97,7 @@ class GenericController
 		
 		$object = $repository->construire($objectArray);
 		$repository->update($object);
+        header("Location: frontController.php");
 	}
 	
 	public function delete() : void

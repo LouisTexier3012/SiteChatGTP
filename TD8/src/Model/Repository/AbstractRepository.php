@@ -62,9 +62,6 @@ abstract class AbstractRepository
             $firstColumnSet = true;
         }
         $sql .= ')';
-
-        var_dump($sql);
-				
         $pdo = DatabaseConnection::getPdo()->prepare($sql);
         $pdo->execute($object->formatTableau());
     }
