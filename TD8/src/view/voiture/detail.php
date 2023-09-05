@@ -6,8 +6,9 @@ if (!is_null($voiture)) {
     $marqueHTML = htmlspecialchars($voiture->getMarque());
     $couleurHTML = htmlspecialchars($voiture->getCouleur());
     $nbSiegesHTML = htmlspecialchars($voiture->getNbSieges());
+    $modelHTML = htmlspecialchars($voiture->getModel());
 
-    echo "<p>Voiture $immatriculationHTML de marque $marqueHTML (couleur $couleurHTML, $nbSiegesHTML sieges)<p>";
+    echo "<div style='display: flex; justify-content: center; align-content: center'><p style='margin-right: 1px'>Voiture $immatriculationHTML de marque $marqueHTML model $modelHTML (</p><div style='background-color: $couleurHTML; width: 10px; height: 10px; align-self: center'></div><p>, $nbSiegesHTML sieges)</p></div>";
 }
 else {
 

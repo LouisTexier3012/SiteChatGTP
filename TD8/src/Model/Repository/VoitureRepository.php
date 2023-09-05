@@ -9,11 +9,12 @@ class VoitureRepository extends AbstractRepository {
     public function construire(array $voitureFormatTableau = []) : Voiture
 	{
         $marque = $voitureFormatTableau['marque'];
+        $model = $voitureFormatTableau['model'];
         $couleur = $voitureFormatTableau['couleur'];
         $immatriculation = $voitureFormatTableau['immatriculation'];
         $nbSieges = $voitureFormatTableau['nbSieges'];
 
-        return new Voiture($marque, $couleur, $immatriculation, $nbSieges);
+        return new Voiture($marque, $model, $couleur, $immatriculation, $nbSieges);
     }
 
 	public function getNomTable(): string
@@ -28,7 +29,7 @@ class VoitureRepository extends AbstractRepository {
 	
 	public function getNomsColonnes(): array
     {
-        return ['immatriculation', 'marque', 'couleur', 'nbSieges'];
+        return ['immatriculation', 'marque', 'model', 'couleur', 'nbSieges'];
     }
 	
 	

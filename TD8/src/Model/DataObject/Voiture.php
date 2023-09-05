@@ -5,6 +5,7 @@ namespace App\Covoiturage\Model\DataObject;
 class Voiture extends AbstractDataObject {
 
     private string $marque;
+    private string $model;
     private string $couleur;
     private string $immatriculation;
     private int $nbSieges;
@@ -19,8 +20,16 @@ class Voiture extends AbstractDataObject {
         $this->marque = $marque;
     }
 
+    public function setModel(string $marque) : void {
+        $this->model = $marque;
+    }
+
     public function getCouleur() : string {
         return $this->couleur;
+    }
+
+    public function getModel() : string {
+        return $this->model;
     }
 
     public function getImmatriculation() : string {
@@ -35,9 +44,10 @@ class Voiture extends AbstractDataObject {
         return $this->nbSieges;
     }
 
-    public function __construct(string $marque, string $couleur, string $immatriculation, int $nbSieges) {
+    public function __construct(string $marque,string  $model,string $couleur, string $immatriculation, int $nbSieges) {
         $this->marque = $marque;
         $this->couleur = $couleur;
+        $this->model=$model;
         $this->immatriculation = substr($immatriculation, 0, 8);
         $this->nbSieges = $nbSieges;
     }
@@ -50,6 +60,7 @@ class Voiture extends AbstractDataObject {
     {
         return array("immatriculation" => $this->immatriculation,
                      "marque" => $this->marque,
+                     "model" => $this->model,
                      "couleur" => $this->couleur,
                      "nbSieges" => $this->nbSieges);
     }

@@ -11,7 +11,11 @@
         <label>Marque</label>
     </li>
     <li>
-        <input type="text" name="couleur" value="<?=$_POST["couleur"] ?? ""?>" pattern=".+" placeholder="Entrez la couleur de la voiture"/>
+        <input type="text" name="Model" value="<?=$_POST["model"] ?? ""?>" pattern=".+" placeholder="Entrez le Model de la voiture"/>
+        <label>Model</label>
+    </li>
+    <li>
+        <input type="color" name="couleur" value="<?=$_POST["couleur"] ?? ""?>" pattern=".+" placeholder="Entrez la couleur de la voiture"/>
         <label>Couleur</label>
     </li>
     <li>
