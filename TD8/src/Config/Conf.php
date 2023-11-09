@@ -11,7 +11,7 @@ class Conf
 		//
 		// ou webinfo.iutmontp.univ-montp2.fr
 		// pour accéder à webinfo depuis l'extérieur
-		'hostname' => 'localhost',
+		'hostname' => 'webinfo.iutmontp.univ-montp2.fr',
 		// A l'IUT, vous avez une BDD nommee comme votre login
 		// Sur votre machine, vous devrez creer une BDD
 		'database' => 'texierl',
